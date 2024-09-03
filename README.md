@@ -1,2 +1,15 @@
-# Library-Management-System
- Library Management System with a user-friendly graphical interface, offering all the essential features of a traditional library management solution. (assign.)
+<pre align="center">
+      _____  
+   __|     |__  
+  |  _     _  |
+ / | O     O | \
+|  |    _    |  |
+|  |  |___|  |  |
+ \ |_________| /
+  |    |_|    |
+   \__     __/
+      |___|
+
+ 
+This repository is currently in development.
+</pre>
