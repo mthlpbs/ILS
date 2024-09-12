@@ -4,8 +4,7 @@
  */
 package elibrarymanagementsystem;
 
-/**
- *
+/** *
  * @author Mithila Prabashwara
  */
 public class Item {
