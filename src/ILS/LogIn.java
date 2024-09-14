@@ -4,13 +4,11 @@
  */
 package ILS;
     import java.sql.Connection;
-    import java.sql.DriverManager;
-    import java.sql.SQLException;
     import java.sql.Statement;
     import java.sql.ResultSet;
-    import java.sql.PreparedStatement;
+    import java.sql.SQLException;
+    import java.awt.HeadlessException;
     import javax.swing.JOptionPane;
-    import java.time.LocalDate;
 
 /**
  *
@@ -20,9 +18,7 @@ public class LogIn extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
-    private static final String JDBC_URL = "jdbc:mysql://127.0.0.1/ils";
-    private static final String USER = "root";
-    private static final String PASSWORD = "";
+    
     public static String intSid;
     
     public LogIn() {
@@ -90,6 +86,7 @@ public class LogIn extends javax.swing.JFrame {
         setBackground(new java.awt.Color(51, 51, 51));
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setLocation(new java.awt.Point(362, 220));
 
         window.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -125,6 +122,7 @@ public class LogIn extends javax.swing.JFrame {
 
         sponsCom.setFont(new java.awt.Font("Segoe UI Semibold", 1, 14)); // NOI18N
         sponsCom.setForeground(new java.awt.Color(179, 179, 179));
+        sponsCom.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         sponsCom.setText("© 2024 Exeter City Council.");
 
         passwd.setBackground(new java.awt.Color(241, 238, 238));
@@ -142,8 +140,9 @@ public class LogIn extends javax.swing.JFrame {
         window.setLayout(windowLayout);
         windowLayout.setHorizontalGroup(
             windowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(windowTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(windowLayout.createSequentialGroup()
+                .addComponent(windowTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, windowLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(sponsCom)
@@ -158,12 +157,15 @@ public class LogIn extends javax.swing.JFrame {
                         .addComponent(signIn, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(windowLayout.createSequentialGroup()
                         .addGap(173, 173, 173)
-                        .addGroup(windowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(windowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(passwdText)
                             .addComponent(sidText)
-                            .addComponent(sid, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(passwd, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(showPwd, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(passwd, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+                            .addComponent(showPwd)
+                            .addComponent(sid)))
+                    .addGroup(windowLayout.createSequentialGroup()
+                        .addGap(242, 242, 242)
+                        .addComponent(logo)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         windowLayout.setVerticalGroup(
@@ -180,7 +182,7 @@ public class LogIn extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(passwdText)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(passwd, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                .addComponent(passwd, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(showPwd)
                 .addGap(18, 18, 18)
@@ -218,22 +220,28 @@ public class LogIn extends javax.swing.JFrame {
         String inputPwd = new String(intPwd);
         try {
             Valid.login(intSid, inputPwd);
-            Connection connection = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
+            Connection connection = db.connect();
             Statement eqStat = connection.createStatement();
             ResultSet rs = eqStat.executeQuery("SELECT `SId` FROM `staff` WHERE `SId` LIKE '"+intSid+"'; ");
             if (rs.next()) {
                 String id = rs.getString(1).toUpperCase();
-                ResultSet rp = eqStat.executeQuery("SELECT `Password` FROM `staff` WHERE `SId` = '"+intSid+"'; ");
+                ResultSet rp = eqStat.executeQuery("SELECT `Password` FROM `staff` WHERE `SId` = '"+id+"'; ");
                 if (rp.next()) {
                     String pwd = rp.getString(1);
-                    if (!(inputPwd.matches(pwd))) {
-                        JOptionPane.showMessageDialog(null, "Wrong password. Try again");
+                    if (!(pwd == null || pwd.trim().isEmpty())) {
+                        if (inputPwd.matches(pwd)) {
+                            Log.write(intSid+" is logged to the system successfully.");
+                            Staff.setSid(id);
+                            this.dispose();
+                            Home homepage = new Home();
+                            homepage.setVisible(true);
+                            Log.write("The Home page is started successfully.");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Wrong password. Try again");
+                        }
                     } else {
-                        Log.write(intSid+" is logged to the system successfully.");
-                        this.dispose();
-                        Home homepage = new Home();
-                        homepage.setVisible(true);
-                        Log.write("The Home page is started successfully.");
+                        Log.write("The login session of "+ intSid+" is failed due to missing the password.");
+                        JOptionPane.showMessageDialog(null, "Something is went wrong with your account. Try again or contact your administrator","Message", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
                     Log.write("The login session of "+ intSid+" is failed due to database error. (missed/altered)");
@@ -241,12 +249,12 @@ public class LogIn extends javax.swing.JFrame {
                 }
             } else { JOptionPane.showMessageDialog(null, "Wrong sid. Try again"); }
             } catch (SQLException e) {
-                Log.write("Error is occured while establish the database connection.\n"+" ".repeat(24)+"ERR MEG -"+e.getMessage());
-                JOptionPane.showMessageDialog(null, "Failed to establish the database connection successfully. Try again or contact your administrator.","Message", JOptionPane.ERROR_MESSAGE);
+                Log.write("An error occurred while fetching data from the database.\n"+" ".repeat(24)+"ERR MEG -"+e.getMessage());
+                JOptionPane.showMessageDialog(null, "An unexpected error occurred. Try again or contact your administrator.","Message", JOptionPane.ERROR_MESSAGE);
             } catch (InvalidLoginCredentialsException e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
-            } catch (Exception e) {
-                Log.write("Error is occured.\n"+" ".repeat(24)+"ERR MEG -"+e.getMessage());
+            } catch (HeadlessException e) {
+                Log.write("Error is occurred.\n"+" ".repeat(24)+"ERR MEG -"+e.getMessage());
                 JOptionPane.showMessageDialog(null, "An unexpected error occurred. Try again or contact your administrator","Message", JOptionPane.ERROR_MESSAGE);
             }
     }//GEN-LAST:event_signInActionPerformed
@@ -315,3 +323,4 @@ public class LogIn extends javax.swing.JFrame {
     private javax.swing.JLabel windowTitle;
     // End of variables declaration//GEN-END:variables
 }
+

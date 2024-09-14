@@ -60,6 +60,9 @@
     <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
       <Color id="Default Cursor"/>
     </Property>
+    <Property name="location" type="java.awt.Point" editor="org.netbeans.beaninfo.editors.PointEditor">
+      <Point value="[362, 220]"/>
+    </Property>
   </Properties>
   <AccessibilityProperties>
     <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
@@ -103,8 +106,10 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="logo" max="32767" attributes="0"/>
-              <Component id="windowTitle" max="32767" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <Component id="windowTitle" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   <Component id="sponsCom" min="-2" max="-2" attributes="0"/>
@@ -122,13 +127,17 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="173" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="passwdText" min="-2" max="-2" attributes="0"/>
                               <Component id="sidText" min="-2" max="-2" attributes="0"/>
-                              <Component id="sid" min="-2" pref="224" max="-2" attributes="0"/>
-                              <Component id="passwd" alignment="0" min="-2" pref="224" max="-2" attributes="0"/>
-                              <Component id="showPwd" alignment="0" min="-2" pref="224" max="-2" attributes="0"/>
+                              <Component id="passwd" alignment="0" pref="224" max="32767" attributes="0"/>
+                              <Component id="showPwd" alignment="0" max="-2" attributes="0"/>
+                              <Component id="sid" alignment="0" max="32767" attributes="0"/>
                           </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="242" max="-2" attributes="0"/>
+                          <Component id="logo" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -149,7 +158,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="passwdText" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="passwd" pref="36" max="32767" attributes="0"/>
+                  <Component id="passwd" min="-2" pref="36" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="showPwd" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -246,6 +255,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="b3" green="b3" red="b3" type="rgb"/>
             </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="&#xa9; 2024 Exeter City Council."/>
           </Properties>
         </Component>

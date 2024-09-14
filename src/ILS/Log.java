@@ -42,11 +42,14 @@ public class Log {
             if (logFile == null) {
                 iniLogFile();
             }
-            FileWriter txtEditor = new FileWriter(logFile, true);
-            txtEditor.write("["+date +"|"+ time +"]"+ " - " + statement + "\n");
-            txtEditor.close();
+            try (FileWriter txtEditor = new FileWriter(logFile, true)) {
+                txtEditor.write("["+date +"|"+ time +"]"+ " - " + statement + "\n");
+            }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "An unexpected error occurred. Contact your administrator.\nADMINREF:An IO error occurred while creating/updating the log file.\n"+"ERR MEG -"+e.getMessage());
+            JOptionPane.showMessageDialog(null, """
+                                                An unexpected error occurred. Contact your administrator.
+                                                ADMINREF:An IO error occurred while creating/updating the log file.
+                                                ERR MEG -"""+e.getMessage());
             System.exit(0);
         }
     }

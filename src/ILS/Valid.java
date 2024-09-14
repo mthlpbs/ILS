@@ -8,10 +8,6 @@ package ILS;
  * @author Mithila Prabashwara
  */
 
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 class InvalidEmailException extends Exception {
     public InvalidEmailException(String message) {
         super(message);
