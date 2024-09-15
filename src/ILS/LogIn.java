@@ -128,6 +128,7 @@ public class LogIn extends javax.swing.JFrame {
         passwd.setBackground(new java.awt.Color(241, 238, 238));
         passwd.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
 
+        showPwd.setBackground(new java.awt.Color(255, 255, 255));
         showPwd.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         showPwd.setText("Show Password");
         showPwd.addActionListener(new java.awt.event.ActionListener() {
@@ -214,6 +215,51 @@ public class LogIn extends javax.swing.JFrame {
      Used to check the login credentials are correct or not.
      * */
     
+    public static void autoLog() {
+        String[] userData = Cache.retrieveUserData();
+        String intSid = userData[0];
+        String inputPwd = userData[1];
+        try {
+            Valid.login(intSid, inputPwd);
+            Connection connection = db.connect();
+            Statement eqStat = connection.createStatement();
+            ResultSet rs = eqStat.executeQuery("SELECT `SId` FROM `staff` WHERE `SId` LIKE '"+intSid+"'; ");
+            if (rs.next()) {
+                String id = rs.getString(1).toUpperCase();
+                ResultSet rp = eqStat.executeQuery("SELECT `Password` FROM `staff` WHERE `SId` = '"+id+"'; ");
+                if (rp.next()) {
+                    String pwd = rp.getString(1);
+                    if (!(pwd == null || pwd.trim().isEmpty())) {
+                        if (inputPwd.matches(pwd)) {
+                            Log.write(intSid+" is logged to the system successfully.");
+                            Staff.setSid(id);
+                            Home homepage = new Home();
+                            homepage.setVisible(true);
+                            Log.write("The Home page is started successfully.");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Wrong password. Try again");
+                        }
+                    } else {
+                        Log.write("The login session of "+ intSid+" is failed due to missing the password.");
+                        JOptionPane.showMessageDialog(null, "Something is went wrong with your account. Try again or contact your administrator","Message", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    Log.write("The login session of "+ intSid+" is failed due to database error. (missed/altered)");
+                    JOptionPane.showMessageDialog(null, "Something is went wrong. Try again or contact your administrator","Message", JOptionPane.ERROR_MESSAGE);
+                }
+            } else { JOptionPane.showMessageDialog(null, "Wrong sid. Try again"); }
+            } catch (SQLException e) {
+                Log.write("An error occurred while fetching data from the database.\n"+" ".repeat(24)+"ERR MEG -"+e.getMessage());
+                JOptionPane.showMessageDialog(null, "An unexpected error occurred. Try again or contact your administrator.","Message", JOptionPane.ERROR_MESSAGE);
+            } catch (InvalidLoginCredentialsException e) {
+                JOptionPane.showMessageDialog(null, e.getMessage());
+            } catch (HeadlessException e) {
+                Log.write("Error is occurred.\n"+" ".repeat(24)+"ERR MEG -"+e.getMessage());
+                JOptionPane.showMessageDialog(null, "An unexpected error occurred. Try again or contact your administrator","Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    
+    
     private void signInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signInActionPerformed
         intSid = sid.getText();
         char[] intPwd = passwd.getPassword();
@@ -230,6 +276,7 @@ public class LogIn extends javax.swing.JFrame {
                     String pwd = rp.getString(1);
                     if (!(pwd == null || pwd.trim().isEmpty())) {
                         if (inputPwd.matches(pwd)) {
+                            Cache.saveUserLog(id, pwd);
                             Log.write(intSid+" is logged to the system successfully.");
                             Staff.setSid(id);
                             this.dispose();
@@ -266,9 +313,7 @@ public class LogIn extends javax.swing.JFrame {
         
     }//GEN-LAST:event_showPwdActionPerformed
 
-    public String getSid() {
-        return sid.getText();
-    }
+    
     /**
      * @param args the command line arguments
      */

@@ -3,6 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package ILS;
+
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 /**
  *
  * @author Mithila Prabashwara
@@ -41,6 +44,9 @@ public class Valid {
         else if (id == null || id.isEmpty()) { throw new InvalidLoginCredentialsException("Please enter a sid.");}
         else if (pass == null || pass.isEmpty()) { throw new InvalidLoginCredentialsException("Please enter a password.");}
         else if (!(id.length()==5)) { throw new InvalidLoginCredentialsException("Please enter a valid sid.");}
+        else if (checkSymbols(id) && checkSymbols(pass)) { throw new InvalidLoginCredentialsException("The login credentials must contain only alphanumeric characters. Symbols are not allowed. Try again.");}
+        else if (checkSymbols(id)) { throw new InvalidLoginCredentialsException("The SID must contain only alphanumeric characters. Symbols are not allowed. Try again.");}
+        else if (checkSymbols(pass)) { throw new InvalidLoginCredentialsException("The password must contain only alphanumeric characters. Symbols are not allowed. Try again.");}
     }
     
     
@@ -50,4 +56,20 @@ public class Valid {
             throw new InvalidPasswordException("Please enter a password.");
         }
     } **/
+
+    private static boolean checkSymbols(String input) {
+        String regex = "[^a-zA-Z0-9]";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+        return matcher.find();
+    }
 }
+
+
+/**
+    public static void main(String[] args) {
+        String testString = "Hello@World!";
+        boolean hasSymbols = containsSymbols(testString);
+        System.out.println("Does the string contain symbols? " + hasSymbols);
+    }
+} **/

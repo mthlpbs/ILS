@@ -20,15 +20,16 @@ public class Log {
     public static void iniLogFile() {
         String usrDir = System.getProperty("user.home");
         String appDir = usrDir + "\\.ExtersILS";
+        String logDir = usrDir + "\\.ExtersILS\\log";
         File dir = new File(appDir);
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
+        File dirL = new File(logDir);
+        if (!dir.exists()) dir.mkdirs();
+        if (!dirL.exists()) dirL.mkdirs();
         LocalDate dateD = LocalDate.now();
         LocalTime timeD = LocalTime.now();
         DateTimeFormatter timeFormatted = DateTimeFormatter.ofPattern("HH-mm-ss");
         String formattedTime = timeD.format(timeFormatted);
-        logFile = new File(appDir + "\\" + "session " + dateD +"@" + formattedTime + ".txt");
+        logFile = new File(logDir + "\\" + "session " + dateD +"@" + formattedTime + ".txt");
     }
 
     // Use to write log statements
@@ -46,10 +47,8 @@ public class Log {
                 txtEditor.write("["+date +"|"+ time +"]"+ " - " + statement + "\n");
             }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, """
-                                                An unexpected error occurred. Contact your administrator.
-                                                ADMINREF:An IO error occurred while creating/updating the log file.
-                                                ERR MEG -"""+e.getMessage());
+            Log.write("Error is occurred.\n"+" ".repeat(24)+"ERR MEG -"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "An unexpected error occurred. Try again or contact your administrator","Message", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
     }
