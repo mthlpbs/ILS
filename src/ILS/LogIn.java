@@ -3,12 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package ILS;
-    import java.sql.Connection;
-    import java.sql.Statement;
-    import java.sql.ResultSet;
-    import java.sql.SQLException;
-    import java.awt.HeadlessException;
-    import javax.swing.JOptionPane;
+
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.awt.HeadlessException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -87,6 +88,7 @@ public class LogIn extends javax.swing.JFrame {
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setLocation(new java.awt.Point(362, 220));
+        setResizable(false);
 
         window.setBackground(new java.awt.Color(255, 255, 255));
 

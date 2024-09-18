@@ -88,5 +88,16 @@ public class Cache {
         }
         return null;
     }
+
+        // Use Base64 as a encrypton method : LOL
+    // Below method is used to encode the Base64 
+    public static String encryptPwd(String pwd) {
+        return Base64.getEncoder().encodeToString(pwd.getBytes());
+    }
+    
+    // Use to decode the Base64
+    public static byte[] decryptPwd(String encoded) {
+        return Base64.getDecoder().decode(encoded);
+        }
 }
 

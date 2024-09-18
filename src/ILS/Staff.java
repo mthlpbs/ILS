@@ -27,6 +27,7 @@ public class Staff {
 
     public static String getName() {
         try {
+            db.connect();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT Name FROM staff WHERE SID = '"+sid+"'");
             if(resultSet.next()) {
@@ -35,6 +36,22 @@ public class Staff {
         } catch (SQLException e) {
             Log.write("Error is occurred while fetching the staff name.\n"+" ".repeat(24)+"ERR MEG -"+e.getMessage());
             JOptionPane.showMessageDialog(null, "Failed to fetch the staff name. Try again or contact your administrator.","Message", JOptionPane.ERROR_MESSAGE);
+        }
+        return null;
+    }
+    
+    public static String addUser(String Name, String Email, String NIC, String TeleNum, String Pwd) {
+        try {
+            db.connect();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("INSERT INTO staff (Name, NIC, Tel, Email, Password) VALUES ('"+Name+"', '"+NIC+"', '"+TeleNum+"', '"+Email+"', '"+Pwd+"')");
+            ResultSet resultSet = statement.executeQuery("SELECT SID FROM staff WHERE NIC = '"+NIC+"'");
+            if(resultSet.next()) {
+                return resultSet.getString("SID");
+            }
+        } catch (SQLException e) {
+            Log.write("Error is occurred while adding the user.\n"+" ".repeat(24)+"ERR MEG -"+e.getMessage());
+            return "Failed to add the user. Try again or contact your administrator.";
         }
         return null;
     }
