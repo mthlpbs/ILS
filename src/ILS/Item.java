@@ -10,9 +10,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import java.sql.PreparedStatement;
 
 /**
  *
@@ -37,23 +36,26 @@ public class Item {
             if(resultSet.next()) {
                 id= resultSet.getString("ItemId");
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Item.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            Log.write("A Error occurred. \n"+" ".repeat(24)+"ERR Details-"+Item.class.getName()+" - "+e.getMessage());
             JOptionPane.showMessageDialog(null,"An unexpected Error. Try again or contact your administrator","Message", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public static String barrowItem(String id, String mid, String dueDate) {
+    public static void barrowItem(String id, String mid, String dueDate) {
         Statement statement;
         try {
             statement = connection.createStatement();
-            statement.executeUpdate("INSERT INTO borrow (ItemId, MemberId, BorrowDate, DueDate) VALUES ('" + id + "', '" + mid + "', CURDATE(), '" + dueDate + "')");
+            statement.executeUpdate("INSERT INTO borrow (ItemID, MemberID, BorrowDate, DueDate) VALUES ('" + id + "', '" + mid + "', CURDATE(), '" + dueDate + "')");
             statement.executeUpdate("UPDATE item SET Availability = '0' WHERE ItemId = '" + id + "'");
-            return "Item borrowed successfully";
-        } catch (SQLException ex) {
-            Logger.getLogger(Item.class.getName()).log(Level.SEVERE, null, ex);
-            return "An unexpected Error. Try again or contact your administrator";
-        }
+            ResultSet resultSet = statement.executeQuery("SELECT BorrowID FROM borrow WHERE ItemID = '"+id+"'");
+            if(resultSet.next()) {
+                JOptionPane.showMessageDialog(null," The item is issued successfully. The borrow id is "+resultSet.getString("BorrowID"));
+            }
+        } catch (SQLException e) {
+            Log.write("A Error occurred. \n"+" ".repeat(24)+"ERR Details-"+Item.class.getName()+" - "+e.getMessage());
+            JOptionPane.showMessageDialog(null,"An unexpected Error. Try again or contact your administrator","Message", JOptionPane.ERROR_MESSAGE);
+        } 
     }
 
     public static double returnItem(String borrowId) {
@@ -68,14 +70,12 @@ public class Item {
                 LocalDate returnDate = LocalDate.now();
                 long daysExceeded = ChronoUnit.DAYS.between(dueDate, returnDate);
                 double fine = daysExceeded > 0 ? daysExceeded * 20 : 0;
-
                 statement.executeUpdate("INSERT INTO returnTable (ItemId, MemberId, ReturnDate, FineID) VALUES ('" + itemId + "', '" + memberId + "', CURDATE(), NULL)", Statement.RETURN_GENERATED_KEYS);
                 ResultSet rsReturn = statement.getGeneratedKeys();
                 String returnId = null;
                 if (rsReturn.next()) {
                     returnId = rsReturn.getString(1);
                 }
-
                 if (fine > 0) {
                     statement.executeUpdate("INSERT INTO fine (Amount, FineDate, MemberID) VALUES (" + fine + ", CURDATE(), '" + memberId + "')", Statement.RETURN_GENERATED_KEYS);
                     ResultSet rsFine = statement.getGeneratedKeys();
@@ -91,7 +91,8 @@ public class Item {
                 JOptionPane.showMessageDialog(null, "Borrow record not found", "Message", JOptionPane.ERROR_MESSAGE);
                 return 0;
             }
-        } catch (SQLException ex) {
+        } catch (SQLException e) {
+            Log.write("A Error occurred. \n"+" ".repeat(24)+"ERR Details-"+Item.class.getName()+" - "+e.getMessage());
             JOptionPane.showMessageDialog(null, "An unexpected Error. Try again or contact your administrator", "Message", JOptionPane.ERROR_MESSAGE);
             return 0;
         }
@@ -139,4 +140,109 @@ public class Item {
         }
     }
     
+    public static String[] getBookBorrowDetails(String borrowId) throws SQLException {
+        Connection cn = db.connect();
+        String[] bookInfo = new String[10];
+        String query = "SELECT i.Title, bk.Year, a.Name AS AuthorName, p.Name AS PublisherName, bk.ISBN, " +
+                       "br.BorrowDate, br.DueDate " +
+                       "FROM Borrow br " +
+                       "JOIN Book bk ON bk.ItemId = br.ItemID " +
+                       "JOIN Item i ON i.ItemId = br.ItemID " +
+                       "JOIN Author a ON bk.AuthorId = a.AuthorId " +
+                       "JOIN Publisher p ON bk.PublisherId = p.PublisherId " +
+                       "WHERE br.BorrowID = ?";
+
+        try (PreparedStatement stmt = cn.prepareStatement(query)) {
+            stmt.setString(1, borrowId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                bookInfo[0] = "Book"; // Type
+                bookInfo[1] = rs.getString("Title");
+                bookInfo[2] = rs.getString("Year");
+                bookInfo[3] = rs.getString("AuthorName");
+                bookInfo[4] = rs.getString("PublisherName");
+                bookInfo[5] = rs.getString("ISBN");
+                bookInfo[6] = rs.getString("BorrowDate");
+                bookInfo[7] = rs.getString("DueDate");
+
+                return bookInfo;
+            }
+        }
+        return null;
+    }
+
+    public static String[] getDVDBorrowDetails(String borrowId) throws SQLException {
+        Connection cn = db.connect();
+        String[] dvdInfo = new String[10];
+        String query = "SELECT i.Title, d.Year, dr.Name AS DirectorName, dp.Name AS PublisherName, d.NumOfDVD, " +
+                       "br.BorrowDate, br.DueDate " +
+                       "FROM Borrow br " +
+                       "JOIN DVD d ON d.ItemId = br.ItemID " +
+                       "JOIN Item i ON i.ItemId = br.ItemID " +
+                       "JOIN Director dr ON d.DirectorId = dr.DirectorId " +
+                       "JOIN DVDPublisher dp ON d.PublisherId = dp.DPublisherId " +
+                       "WHERE br.BorrowID = ?";
+
+        try (PreparedStatement stmt = cn.prepareStatement(query)) {
+            stmt.setString(1, borrowId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                dvdInfo[0] = "DVD";
+                dvdInfo[1] = rs.getString("Title");
+                dvdInfo[2] = rs.getString("Year");
+                dvdInfo[3] = rs.getString("DirectorName");
+                dvdInfo[4] = rs.getString("PublisherName");
+                dvdInfo[5] = rs.getString("NumOfDVD");
+                dvdInfo[6] = rs.getString("BorrowDate");
+                dvdInfo[7] = rs.getString("DueDate");
+
+                return dvdInfo;
+            }
+        }
+        return null;
+    }
+    
+    
+    public static String getItemTypeByBorrowId(String borrowId) throws SQLException {
+        Connection cn = db.connect();
+        String query = "SELECT t.TypeName " +
+                       "FROM Borrow br " +
+                       "JOIN Item i ON br.ItemID = i.ItemId " +
+                       "JOIN Type t ON i.TypeId = t.TypeId " +
+                       "WHERE br.BorrowID = ?";
+        try (PreparedStatement stmt = cn.prepareStatement(query)) {
+            stmt.setString(1, borrowId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("TypeName");
+            }
+        }
+        return null; // Borrow record not found
+    }
+    
+    public static boolean isBorrowIdExists(String borrowId) throws SQLException {
+        try {
+            ResultSet rs = db.connect().createStatement().executeQuery("SELECT BorrowID FROM borrow WHERE BorrowID = '" + borrowId + "'");
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Enter a valid Borrow ID.", "Message", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return false;
+    }
+
+    public static boolean isItemIdExists(String itemId) throws SQLException {
+        try {
+            ResultSet rs = db.connect().createStatement().executeQuery("SELECT ItemID FROM item WHERE ItemID = '" + itemId + "'");
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Enter a valid Item ID.", "Message", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return false;
+    }
 }

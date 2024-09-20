@@ -4,20 +4,27 @@
  */
 package ILS;
 
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import java.awt.Color;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 /**
  *
  * @author Mithila Prabashwara
  */
 public class Home extends javax.swing.JFrame {
+    private static boolean rStatus=true;
     /**
      * Creates new form HomePage
      */
     public Home() {
+        Fine fine = new Fine();
+        fine.checkAndUpdateFines();
         initComponents();
         String staffName = Staff.getName();
         welcomeUser.setText("Hello, "+staffName);
@@ -96,8 +103,8 @@ public class Home extends javax.swing.JFrame {
         jLabel32 = new javax.swing.JLabel();
         addBookYear1 = new javax.swing.JTextField();
         addDVDs = new javax.swing.JButton();
-        barrowItemWindow = new javax.swing.JFrame();
-        barrowItembg = new javax.swing.JPanel();
+        borrowItemWindow = new javax.swing.JFrame();
+        borrowItembg = new javax.swing.JPanel();
         bItemId = new javax.swing.JTextField();
         itemIDTxt = new javax.swing.JLabel();
         Description = new javax.swing.JPanel();
@@ -113,6 +120,31 @@ public class Home extends javax.swing.JFrame {
         mAV = new javax.swing.JPanel();
         iAV = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        bDueDate = new org.jdesktop.swingx.JXDatePicker();
+        returnItemWindow = new javax.swing.JFrame();
+        returnBg = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        rBorrowID = new javax.swing.JTextField();
+        bgBorrow = new javax.swing.JPanel();
+        nameBorrow = new javax.swing.JLabel();
+        typeBorrow = new javax.swing.JLabel();
+        authorBorrow = new javax.swing.JLabel();
+        isbnBorrow = new javax.swing.JLabel();
+        yearBorrow = new javax.swing.JLabel();
+        pubBorrow = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        b1 = new javax.swing.JLabel();
+        bDate = new javax.swing.JLabel();
+        b2 = new javax.swing.JLabel();
+        dDate = new javax.swing.JLabel();
+        b3 = new javax.swing.JLabel();
+        fPrice = new javax.swing.JLabel();
+        rReturnButton = new javax.swing.JButton();
+        barrowRecord = new javax.swing.JFrame();
+        borrowRecordBg = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        borrowTable = new javax.swing.JTable();
         bg = new javax.swing.JPanel();
         header = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
@@ -133,8 +165,9 @@ public class Home extends javax.swing.JFrame {
         addBarrow = new javax.swing.JButton();
         viewRecords = new javax.swing.JPanel();
         viewRecordTxt = new javax.swing.JLabel();
-        viewReturn = new javax.swing.JButton();
-        viewBarrow = new javax.swing.JButton();
+        ViewAllRecords = new javax.swing.JButton();
+        addBook1 = new javax.swing.JButton();
+        addDVD1 = new javax.swing.JButton();
 
         logoutWindow.setTitle("Message");
         logoutWindow.setAlwaysOnTop(true);
@@ -202,7 +235,6 @@ public class Home extends javax.swing.JFrame {
 
         addMemWindow.setTitle("Add a member");
         addMemWindow.setLocation(new java.awt.Point(419, 140));
-        addMemWindow.setPreferredSize(new java.awt.Dimension(419, 567));
         addMemWindow.setResizable(false);
         addMemWindow.setSize(new java.awt.Dimension(425, 567));
 
@@ -334,7 +366,6 @@ public class Home extends javax.swing.JFrame {
 
         addStaffWindow.setTitle("Add a staff member");
         addStaffWindow.setLocation(new java.awt.Point(419, 140));
-        addStaffWindow.setPreferredSize(new java.awt.Dimension(429, 594));
         addStaffWindow.setResizable(false);
         addStaffWindow.setSize(new java.awt.Dimension(429, 594));
 
@@ -461,7 +492,6 @@ public class Home extends javax.swing.JFrame {
 
         addBookWindow.setTitle("Add a book");
         addBookWindow.setLocation(new java.awt.Point(419, 140));
-        addBookWindow.setPreferredSize(new java.awt.Dimension(415, 569));
         addBookWindow.setResizable(false);
         addBookWindow.setSize(new java.awt.Dimension(415, 569));
 
@@ -484,21 +514,11 @@ public class Home extends javax.swing.JFrame {
 
         addBookPublisher.setBackground(new java.awt.Color(235, 235, 235));
         addBookPublisher.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
-        addBookPublisher.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addBookPublisherActionPerformed(evt);
-            }
-        });
 
         jLabel26.setText("ISBN");
 
         addBookISBN.setBackground(new java.awt.Color(235, 235, 235));
         addBookISBN.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
-        addBookISBN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addBookISBNActionPerformed(evt);
-            }
-        });
 
         jLabel27.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel27.setText("Year");
@@ -618,21 +638,11 @@ public class Home extends javax.swing.JFrame {
 
         addDVDPublisher.setBackground(new java.awt.Color(235, 235, 235));
         addDVDPublisher.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
-        addDVDPublisher.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addDVDPublisherActionPerformed(evt);
-            }
-        });
 
         jLabel31.setText("Num Of DVD");
 
         addDVDNum.setBackground(new java.awt.Color(235, 235, 235));
         addDVDNum.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
-        addDVDNum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addDVDNumActionPerformed(evt);
-            }
-        });
 
         jLabel32.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel32.setText("Year");
@@ -717,14 +727,13 @@ public class Home extends javax.swing.JFrame {
             .addComponent(addDVDBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        barrowItemWindow.setTitle("Barrow Item");
-        barrowItemWindow.setLocation(new java.awt.Point(353, 285));
-        barrowItemWindow.setPreferredSize(new java.awt.Dimension(608, 390));
-        barrowItemWindow.setResizable(false);
-        barrowItemWindow.setSize(new java.awt.Dimension(608, 390));
+        borrowItemWindow.setTitle("Borrow Item");
+        borrowItemWindow.setLocation(new java.awt.Point(353, 285));
+        borrowItemWindow.setResizable(false);
+        borrowItemWindow.setSize(new java.awt.Dimension(608, 390));
 
-        barrowItembg.setBackground(new java.awt.Color(255, 255, 255));
-        barrowItembg.setPreferredSize(new java.awt.Dimension(608, 464));
+        borrowItembg.setBackground(new java.awt.Color(255, 255, 255));
+        borrowItembg.setPreferredSize(new java.awt.Dimension(608, 464));
 
         bItemId.setBackground(new java.awt.Color(238, 238, 238));
         bItemId.setToolTipText("");
@@ -793,11 +802,6 @@ public class Home extends javax.swing.JFrame {
         bMemberId.setBackground(new java.awt.Color(238, 238, 238));
         bMemberId.setToolTipText("");
         bMemberId.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
-        bMemberId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bMemberIdActionPerformed(evt);
-            }
-        });
         bMemberId.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 bMemberIdKeyReleased(evt);
@@ -843,85 +847,348 @@ public class Home extends javax.swing.JFrame {
         jLabel20.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jLabel20.setText("Availability");
 
-        javax.swing.GroupLayout barrowItembgLayout = new javax.swing.GroupLayout(barrowItembg);
-        barrowItembg.setLayout(barrowItembgLayout);
-        barrowItembgLayout.setHorizontalGroup(
-            barrowItembgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(barrowItembgLayout.createSequentialGroup()
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setText("Due Date ");
+
+        bDueDate.setBackground(new java.awt.Color(238, 238, 238));
+
+        javax.swing.GroupLayout borrowItembgLayout = new javax.swing.GroupLayout(borrowItembg);
+        borrowItembg.setLayout(borrowItembgLayout);
+        borrowItembgLayout.setHorizontalGroup(
+            borrowItembgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(borrowItembgLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(barrowItembgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(barrowItembgLayout.createSequentialGroup()
-                        .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(bMemberId, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(barrowItembgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(barrowItembgLayout.createSequentialGroup()
-                                .addGap(77, 77, 77)
-                                .addComponent(mAV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(barrowItembgLayout.createSequentialGroup()
-                                .addGap(62, 62, 62)
-                                .addComponent(jLabel35)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(barrowItembgLayout.createSequentialGroup()
-                        .addGroup(barrowItembgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(barrowItembgLayout.createSequentialGroup()
+                .addGroup(borrowItembgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(borrowItembgLayout.createSequentialGroup()
+                        .addGroup(borrowItembgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(borrowItembgLayout.createSequentialGroup()
                                 .addComponent(itemIDTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(bItemId, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(barrowItembgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(barrowItembgLayout.createSequentialGroup()
+                                .addGroup(borrowItembgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(borrowItembgLayout.createSequentialGroup()
                                         .addGap(61, 61, 61)
                                         .addComponent(jLabel20))
-                                    .addGroup(barrowItembgLayout.createSequentialGroup()
+                                    .addGroup(borrowItembgLayout.createSequentialGroup()
                                         .addGap(72, 72, 72)
                                         .addComponent(iAV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(Description, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(41, Short.MAX_VALUE))))
-            .addGroup(barrowItembgLayout.createSequentialGroup()
-                .addGap(250, 250, 250)
+                        .addContainerGap(41, Short.MAX_VALUE))
+                    .addGroup(borrowItembgLayout.createSequentialGroup()
+                        .addGroup(borrowItembgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel34, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(borrowItembgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(borrowItembgLayout.createSequentialGroup()
+                                .addComponent(bMemberId, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(borrowItembgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(borrowItembgLayout.createSequentialGroup()
+                                        .addGap(77, 77, 77)
+                                        .addComponent(mAV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(borrowItembgLayout.createSequentialGroup()
+                                        .addGap(62, 62, 62)
+                                        .addComponent(jLabel35))))
+                            .addComponent(bDueDate, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(borrowItembgLayout.createSequentialGroup()
+                .addGap(248, 248, 248)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
-        barrowItembgLayout.setVerticalGroup(
-            barrowItembgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(barrowItembgLayout.createSequentialGroup()
+        borrowItembgLayout.setVerticalGroup(
+            borrowItembgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(borrowItembgLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(barrowItembgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(barrowItembgLayout.createSequentialGroup()
-                        .addGroup(barrowItembgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(borrowItembgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(borrowItembgLayout.createSequentialGroup()
+                        .addGroup(borrowItembgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(itemIDTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(bItemId, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(20, 20, 20))
-                    .addGroup(barrowItembgLayout.createSequentialGroup()
+                    .addGroup(borrowItembgLayout.createSequentialGroup()
                         .addComponent(iAV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel20)
                         .addGap(18, 18, 18)))
                 .addComponent(Description, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(barrowItembgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(barrowItembgLayout.createSequentialGroup()
-                        .addGroup(barrowItembgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bMemberId, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(56, 56, 56)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(barrowItembgLayout.createSequentialGroup()
+                .addGroup(borrowItembgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(borrowItembgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(bMemberId, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(borrowItembgLayout.createSequentialGroup()
                         .addComponent(mAV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel35)))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(borrowItembgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bDueDate, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40))
         );
 
-        javax.swing.GroupLayout barrowItemWindowLayout = new javax.swing.GroupLayout(barrowItemWindow.getContentPane());
-        barrowItemWindow.getContentPane().setLayout(barrowItemWindowLayout);
-        barrowItemWindowLayout.setHorizontalGroup(
-            barrowItemWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(barrowItembg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        javax.swing.GroupLayout borrowItemWindowLayout = new javax.swing.GroupLayout(borrowItemWindow.getContentPane());
+        borrowItemWindow.getContentPane().setLayout(borrowItemWindowLayout);
+        borrowItemWindowLayout.setHorizontalGroup(
+            borrowItemWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(borrowItembg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        barrowItemWindowLayout.setVerticalGroup(
-            barrowItemWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(barrowItembg, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+        borrowItemWindowLayout.setVerticalGroup(
+            borrowItemWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(borrowItembg, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        returnItemWindow.setTitle("Return an item");
+        returnItemWindow.setBackground(new java.awt.Color(255, 255, 255));
+        returnItemWindow.setLocation(new java.awt.Point(353, 285));
+        returnItemWindow.setResizable(false);
+        returnItemWindow.setSize(new java.awt.Dimension(633, 450));
+
+        returnBg.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel10.setText("Barrow ID ");
+
+        rBorrowID.setBackground(new java.awt.Color(238, 238, 238));
+        rBorrowID.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
+        rBorrowID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                rBorrowIDKeyReleased(evt);
+            }
+        });
+
+        bgBorrow.setBackground(new java.awt.Color(246, 246, 246));
+
+        nameBorrow.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        nameBorrow.setText("3 Body Problem");
+
+        typeBorrow.setText("Book");
+
+        authorBorrow.setText("John Mendis");
+
+        isbnBorrow.setText("86943843532453");
+
+        yearBorrow.setText("2022");
+
+        pubBorrow.setText("Polaris Publication");
+
+        b1.setForeground(new java.awt.Color(153, 153, 153));
+        b1.setText("Borrowed Date");
+
+        bDate.setText("2024-08-12");
+
+        b2.setForeground(new java.awt.Color(153, 153, 153));
+        b2.setText("Due Date");
+
+        dDate.setText("2024-09-19");
+
+        b3.setForeground(new java.awt.Color(153, 153, 153));
+        b3.setText("Fine");
+
+        fPrice.setText("RS.25.00");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(bDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(b1, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
+                .addGap(68, 68, 68)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(b2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dDate, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(72, 72, 72)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(b3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(fPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(b1)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(b2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(b3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(bDate, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                    .addComponent(dDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(fPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout bgBorrowLayout = new javax.swing.GroupLayout(bgBorrow);
+        bgBorrow.setLayout(bgBorrowLayout);
+        bgBorrowLayout.setHorizontalGroup(
+            bgBorrowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bgBorrowLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(bgBorrowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(bgBorrowLayout.createSequentialGroup()
+                        .addGroup(bgBorrowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(yearBorrow, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(typeBorrow, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addGroup(bgBorrowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nameBorrow, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(bgBorrowLayout.createSequentialGroup()
+                                .addComponent(authorBorrow, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(pubBorrow, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(isbnBorrow, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        bgBorrowLayout.setVerticalGroup(
+            bgBorrowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bgBorrowLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(bgBorrowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nameBorrow, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(typeBorrow))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(bgBorrowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(authorBorrow)
+                    .addComponent(pubBorrow)
+                    .addComponent(isbnBorrow)
+                    .addComponent(yearBorrow))
+                .addGap(34, 34, 34)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+
+        rReturnButton.setBackground(new java.awt.Color(84, 177, 233));
+        rReturnButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        rReturnButton.setForeground(new java.awt.Color(255, 255, 255));
+        rReturnButton.setText("Return");
+        rReturnButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        rReturnButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rReturnButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout returnBgLayout = new javax.swing.GroupLayout(returnBg);
+        returnBg.setLayout(returnBgLayout);
+        returnBgLayout.setHorizontalGroup(
+            returnBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(returnBgLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(returnBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bgBorrow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(returnBgLayout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(18, 18, 18)
+                        .addComponent(rBorrowID, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(35, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, returnBgLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(239, 239, 239))
+        );
+        returnBgLayout.setVerticalGroup(
+            returnBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(returnBgLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(returnBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(rBorrowID, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(bgBorrow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addComponent(rReturnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
+        );
+
+        javax.swing.GroupLayout returnItemWindowLayout = new javax.swing.GroupLayout(returnItemWindow.getContentPane());
+        returnItemWindow.getContentPane().setLayout(returnItemWindowLayout);
+        returnItemWindowLayout.setHorizontalGroup(
+            returnItemWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(returnBg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        returnItemWindowLayout.setVerticalGroup(
+            returnItemWindowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(returnBg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        barrowRecord.setTitle("Borrow Records");
+        barrowRecord.setLocation(new java.awt.Point(204, 201));
+        barrowRecord.setResizable(false);
+        barrowRecord.setSize(new java.awt.Dimension(973, 660));
+        barrowRecord.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                barrowRecordWindowOpened(evt);
+            }
+        });
+
+        borrowRecordBg.setBackground(new java.awt.Color(255, 255, 255));
+
+        jScrollPane2.setBackground(new java.awt.Color(252, 249, 249));
+
+        borrowTable.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        borrowTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        borrowTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"", null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Borrow ID", "Item", "Borrower", "Borrow Date", "Due Date", "Return Date", "Fine"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        borrowTable.setGridColor(new java.awt.Color(204, 204, 204));
+        borrowTable.setMinimumSize(new java.awt.Dimension(941, 581));
+        borrowTable.setPreferredSize(new java.awt.Dimension(941, 581));
+        borrowTable.setRowHeight(40);
+        borrowTable.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane2.setViewportView(borrowTable);
+
+        javax.swing.GroupLayout borrowRecordBgLayout = new javax.swing.GroupLayout(borrowRecordBg);
+        borrowRecordBg.setLayout(borrowRecordBgLayout);
+        borrowRecordBgLayout.setHorizontalGroup(
+            borrowRecordBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(borrowRecordBgLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 941, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+        borrowRecordBgLayout.setVerticalGroup(
+            borrowRecordBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, borrowRecordBgLayout.createSequentialGroup()
+                .addContainerGap(62, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
+        );
+
+        javax.swing.GroupLayout barrowRecordLayout = new javax.swing.GroupLayout(barrowRecord.getContentPane());
+        barrowRecord.getContentPane().setLayout(barrowRecordLayout);
+        barrowRecordLayout.setHorizontalGroup(
+            barrowRecordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(borrowRecordBg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        barrowRecordLayout.setVerticalGroup(
+            barrowRecordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(borrowRecordBg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -962,7 +1229,7 @@ public class Home extends javax.swing.JFrame {
             .addGroup(headerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 507, Short.MAX_VALUE)
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(welcomeUser, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(logoutButton, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -1080,7 +1347,7 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        searchBox.setBackground(new java.awt.Color(234, 234, 234));
+        searchBox.setBackground(new java.awt.Color(234, 228, 240));
         searchBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         searchBox.setToolTipText("");
         searchBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -1154,23 +1421,33 @@ public class Home extends javax.swing.JFrame {
         viewRecordTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         viewRecordTxt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/tableView.png"))); // NOI18N
 
-        viewReturn.setBackground(new java.awt.Color(205, 182, 216));
-        viewReturn.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        viewReturn.setText("Return Records");
-        viewReturn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        viewReturn.addActionListener(new java.awt.event.ActionListener() {
+        ViewAllRecords.setBackground(new java.awt.Color(205, 182, 216));
+        ViewAllRecords.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        ViewAllRecords.setText("All Records");
+        ViewAllRecords.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        ViewAllRecords.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewReturnActionPerformed(evt);
+                ViewAllRecordsActionPerformed(evt);
             }
         });
 
-        viewBarrow.setBackground(new java.awt.Color(205, 182, 216));
-        viewBarrow.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        viewBarrow.setText("Barrow Records");
-        viewBarrow.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        viewBarrow.addActionListener(new java.awt.event.ActionListener() {
+        addBook1.setBackground(new java.awt.Color(205, 182, 216));
+        addBook1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        addBook1.setText("Book");
+        addBook1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        addBook1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewBarrowActionPerformed(evt);
+                addBook1ActionPerformed(evt);
+            }
+        });
+
+        addDVD1.setBackground(new java.awt.Color(205, 182, 216));
+        addDVD1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        addDVD1.setText("DVD");
+        addDVD1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        addDVD1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addDVD1ActionPerformed(evt);
             }
         });
 
@@ -1179,25 +1456,30 @@ public class Home extends javax.swing.JFrame {
         viewRecordsLayout.setHorizontalGroup(
             viewRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(viewRecordsLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(viewRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(viewBarrow, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                    .addComponent(viewReturn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(viewRecordsLayout.createSequentialGroup()
                 .addComponent(viewRecordTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 4, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewRecordsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(viewRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(ViewAllRecords, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(viewRecordsLayout.createSequentialGroup()
+                        .addComponent(addBook1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(addDVD1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(32, 32, 32))
         );
         viewRecordsLayout.setVerticalGroup(
             viewRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(viewRecordsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(viewRecordTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(viewBarrow, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(viewReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(viewRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addBook1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addDVD1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
+                .addComponent(ViewAllRecords, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
@@ -1287,7 +1569,9 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_addDVDActionPerformed
 
     private void addReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addReturnActionPerformed
-        // TODO add your handling code here:
+        bgBorrow.setVisible(false);
+        returnItemWindow.setVisible(true);
+
     }//GEN-LAST:event_addReturnActionPerformed
 
     private void addBarrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBarrowActionPerformed
@@ -1299,16 +1583,16 @@ public class Home extends javax.swing.JFrame {
         jLabel33.setForeground(new Color(238,238,238));
         Description.setBackground(new Color(238,238,238));
         jLabel20.setBackground(new Color(238,238,238));
-        barrowItemWindow.setVisible(true);
+        bDueDate.setDate(null);
+        bMemberId.setText("");
+        mAV.setBackground(new Color(238,238,238));
+        iAV.setBackground(new Color(238,238,238));
+        borrowItemWindow.setVisible(true);
     }//GEN-LAST:event_addBarrowActionPerformed
 
-    private void viewReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewReturnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_viewReturnActionPerformed
-
-    private void viewBarrowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewBarrowActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_viewBarrowActionPerformed
+    private void ViewAllRecordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewAllRecordsActionPerformed
+        barrowRecord.setVisible(true);
+    }//GEN-LAST:event_ViewAllRecordsActionPerformed
 
     private void searchBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBoxActionPerformed
         // TODO add your handling code here:
@@ -1362,14 +1646,6 @@ public class Home extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_staffRegButtonActionPerformed
 
-    private void addBookISBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBookISBNActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addBookISBNActionPerformed
-
-    private void addBookPublisherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBookPublisherActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addBookPublisherActionPerformed
-
     private void addBookKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBookKActionPerformed
         try {
             String BookTitle = addBookTitle.getText();
@@ -1394,14 +1670,6 @@ public class Home extends javax.swing.JFrame {
         //
     }//GEN-LAST:event_addBookKActionPerformed
 
-    private void addDVDPublisherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDVDPublisherActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addDVDPublisherActionPerformed
-
-    private void addDVDNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDVDNumActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addDVDNumActionPerformed
-
     private void addDVDsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDVDsActionPerformed
         try {
             String DVDTitle = addDVDTitle.getText();
@@ -1419,71 +1687,231 @@ public class Home extends javax.swing.JFrame {
             addDVDNum.setText("");
             addBookYear1.setText("");
         } catch (InvalidDVDCredentialsException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            Log.write(e.getMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage(),"Message", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_addDVDsActionPerformed
 
     private void bItemIdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bItemIdKeyReleased
         String id = bItemId.getText();
-        if (id.length()==6) {
-            String[] item = Item.getDetails(id);
-            if (item[2].matches("T001")) {
-                iAV.setBackground(Color.GREEN);
-                Description.setBackground(new Color(231,236,239));
-                String[] book = Book.getDetails(id);
-                jLabel20.setBackground(Color.BLACK);
-                itemType.setText("Book"); itemType.setForeground(Color.BLACK);
-                bookName.setText(item[1]); bookName.setForeground(Color.BLACK);
-                jLabel22.setText(book[1]); jLabel22.setForeground(Color.BLACK);
-                jLabel23.setText(book[0]); jLabel23.setForeground(Color.BLACK);
-                jLabel33.setText(book[2]); jLabel33.setForeground(Color.BLACK);
-            } else  {
-                String[] dvd = DVD.getDetails(id);
-                iAV.setBackground(Color.GREEN);
-                jLabel20.setBackground(Color.BLACK);
-                Description.setBackground(new Color(231,236,239));
-                itemType.setText("DVD"); itemType.setForeground(Color.BLACK);
-                bookName.setText(item[1]); bookName.setForeground(Color.BLACK);
-                jLabel22.setText(dvd[1]); jLabel22.setForeground(Color.BLACK);
-                jLabel23.setText(dvd[3]); jLabel23.setForeground(Color.BLACK);
-                jLabel33.setText(dvd[2]); jLabel33.setForeground(Color.BLACK);
-            }
-            if (Item.checkItem(id)) {iAV.setBackground(Color.GREEN);}
-            else {iAV.setBackground(Color.RED);}
-        } else {
-            jLabel20.setBackground(new Color(238,238,238));
-            itemType.setForeground(new Color(238,238,238));
-            bookName.setForeground(new Color(238,238,238));
-            jLabel22.setForeground(new Color(238,238,238));
-            jLabel23.setForeground(new Color(238,238,238));
-            jLabel33.setForeground(new Color(238,238,238));
-            Description.setBackground(new Color(238,238,238));
-            barrowItemWindow.setVisible(true);
-            iAV.setBackground(new Color(242,242,242));
+        try {
+                if (Item.isItemIdExists(id)) {
+                    String[] item = Item.getDetails(id);
+                    if (item[2].matches("T001")) {
+                        iAV.setBackground(Color.GREEN);
+                        Description.setBackground(new Color(231,236,239));
+                        String[] book = Book.getDetails(id);
+                        jLabel20.setBackground(Color.BLACK);
+                        itemType.setText("Book"); itemType.setForeground(Color.BLACK);
+                        bookName.setText(item[1]); bookName.setForeground(Color.BLACK);
+                        jLabel22.setText(book[1]); jLabel22.setForeground(Color.BLACK);
+                        jLabel23.setText(book[0]); jLabel23.setForeground(Color.BLACK);
+                        jLabel33.setText(book[2]); jLabel33.setForeground(Color.BLACK);
+                    } else  {
+                        String[] dvd = DVD.getDetails(id);
+                        iAV.setBackground(Color.GREEN);
+                        jLabel20.setBackground(Color.BLACK);
+                        Description.setBackground(new Color(231,236,239));
+                        itemType.setText("DVD"); itemType.setForeground(Color.BLACK);
+                        bookName.setText(item[1]); bookName.setForeground(Color.BLACK);
+                        jLabel22.setText(dvd[1]); jLabel22.setForeground(Color.BLACK);
+                        jLabel23.setText(dvd[3]); jLabel23.setForeground(Color.BLACK);
+                        jLabel33.setText(dvd[2]); jLabel33.setForeground(Color.BLACK);
+                    }
+                    if (Item.checkItem(id)) {iAV.setBackground(Color.GREEN);}
+                    else {iAV.setBackground(Color.RED);}
+                } else {
+                    jLabel20.setBackground(new Color(238,238,238));
+                    itemType.setForeground(new Color(238,238,238));
+                    bookName.setForeground(new Color(238,238,238));
+                    jLabel22.setForeground(new Color(238,238,238));
+                    jLabel23.setForeground(new Color(238,238,238));
+                    jLabel33.setForeground(new Color(238,238,238));
+                    Description.setBackground(new Color(238,238,238));
+                    borrowItemWindow.setVisible(true);
+                    iAV.setBackground(new Color(242,242,242));
+                }
+        } catch (SQLException e) {
+            Log.write("A Error occurred. \n"+" ".repeat(24)+"ERR Details-"+Item.class.getName()+" - "+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Something is went wrong with your account. Try again or contact your administrator","Message", JOptionPane.ERROR_MESSAGE);
         }
+        
     }//GEN-LAST:event_bItemIdKeyReleased
 
     private void bMemberIdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bMemberIdKeyReleased
         String MId = bMemberId.getText();
         if (MId.length()==6) {
             try {
-                if (Member.checkMemberBorrowStatus(MId)) {
-                    mAV.setBackground(Color.GREEN);
-                } else { mAV.setBackground(Color.RED);}
-            } catch (SQLException ex) {
-                Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {mAV.setBackground(new Color(242,242,242));}
+                if (Member.isMemIdExists(MId)) {
+                    String[] res = Fine.checkMemberFineStatus(MId);
+                    if (res[0].matches("no")) {
+                        mAV.setBackground(Color.GREEN);
+                        } else { mAV.setBackground(Color.RED);}}
+                } catch (SQLException e) {
+                    Log.write("A Error occurred. \n"+" ".repeat(24)+"ERR Details-"+Item.class.getName()+" - "+e.getMessage());
+                    JOptionPane.showMessageDialog(null, "Something is went wrong with your account. Try again or contact your administrator","Message", JOptionPane.ERROR_MESSAGE);
+                } }
+        else {mAV.setBackground(new Color(242,242,242));}
     }//GEN-LAST:event_bMemberIdKeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        try {
+            String id = bItemId.getText();
+            String MId = bMemberId.getText();
+            Date dueDate = bDueDate.getDate();
+            if (dueDate == null) {
+                JOptionPane.showMessageDialog(null, "Please select a due date","Message", JOptionPane.ERROR_MESSAGE);
+            }
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String formattedDate = sdf.format(dueDate);
+            String[] res=Fine.checkMemberFineStatus(MId);
+            if (Item.checkItem(id) && res[0].matches("no")) {
+                Item.barrowItem(id, MId, formattedDate);
+                borrowItemWindow.dispose();
+            } else if (Item.checkItem(id) == false && res[0].matches("yes")) {
+                JOptionPane.showMessageDialog(null, "Sorry. This member can't borrow a book.","Message", JOptionPane.ERROR_MESSAGE);
+            } else if (res[0].matches("yes")) {
+                JOptionPane.showMessageDialog(null, "Please return the borrowed item.","Message", JOptionPane.ERROR_MESSAGE);
+            } else if (Item.checkItem(id)) {
+                JOptionPane.showMessageDialog(null, "Sorry. Item is unavailable.","Message", JOptionPane.ERROR_MESSAGE);
+            } else if (Item.checkItem(id) == false && res[0].matches("yes")) {
+                JOptionPane.showMessageDialog(null, "Sorry. This member can't borrow a book.","Message", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException e) {
+            Log.write("A Error occurred. \n"+" ".repeat(24)+"ERR Details-"+Item.class.getName()+" - "+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Something is went wrong with your account. Try again or contact your administrator","Message", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            Log.write("A Error occurred. \n"+" ".repeat(24)+"ERR Details-"+Item.class.getName()+" - "+e.getMessage());
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void bMemberIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bMemberIdActionPerformed
+    private void rBorrowIDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rBorrowIDKeyReleased
+        rStatus = false;
+        String id = rBorrowID.getText();
+        try {
+            if (Item.isBorrowIdExists(id)) {
+                String[] info = new String[10];
+                String[] fine = Fine.checkMemberFineStatus(id);
+                if (Item.getItemTypeByBorrowId(id).matches("Book")) {
+                    info = Item.getBookBorrowDetails(id);
+                    nameBorrow.setText(info[1]);
+                    typeBorrow.setText(info[0]);
+                    authorBorrow.setText(info[3]);
+                    isbnBorrow.setText(info[5]);
+                    yearBorrow.setText(info[2]);
+                    pubBorrow.setText(info[4]);
+                    bDate.setText(info[6]);
+                    dDate.setText(info[7]);
+                    fPrice.setText(fine[1]);
+                    bgBorrow.setVisible(true);
+                    rStatus = true;
+                } else {
+                    info = Item.getDVDBorrowDetails(id);
+                    nameBorrow.setText(info[1]);
+                    typeBorrow.setText(info[0]);
+                    authorBorrow.setText(info[3]);
+                    isbnBorrow.setText(info[5]);
+                    yearBorrow.setText(info[2]);
+                    pubBorrow.setText(info[4]);
+                    bDate.setText(info[6]);
+                    dDate.setText(info[7]);
+                    fPrice.setText(fine[1]);
+                    bgBorrow.setVisible(true);
+                    rStatus = true;
+                }
+            } else { 
+                bgBorrow.setVisible(false);
+                rStatus = false;
+            } 
+        } catch (SQLException e) {
+                Log.write("A Error occurred. \n"+" ".repeat(24)+"ERR Details-"+Item.class.getName()+" - "+e.getMessage());
+                JOptionPane.showMessageDialog(null, "Something is went wrong with your account. Try again or contact your administrator","Message", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_rBorrowIDKeyReleased
+
+    private void rReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rReturnButtonActionPerformed
+        String borrowID = rBorrowID.getText().trim();
+        if (borrowID.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter a Borrow ID.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (rStatus) {
+            Connection connection = null;
+            Statement statement = null;
+            ResultSet resultSet = null;
+            try {
+                connection = db.connect();
+                statement = connection.createStatement();
+                String checkReturnQuery = "SELECT BorrowID FROM returntable WHERE BorrowID = '" + borrowID + "'";
+                resultSet = statement.executeQuery(checkReturnQuery);
+                if (resultSet.next()) {
+                    JOptionPane.showMessageDialog(null, "This item is already returned.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                String checkBorrowQuery = "SELECT ItemID, MemberID FROM borrow WHERE BorrowID = '" + borrowID + "'";
+                resultSet = statement.executeQuery(checkBorrowQuery);
+                if (resultSet.next()) {
+                    String itemID = resultSet.getString("ItemID");
+                    String memberID = resultSet.getString("MemberID");
+                    String returnDate = java.time.LocalDate.now().toString();
+                    String insertReturnQuery = "INSERT INTO returntable (BorrowID, ItemID, MemberID, ReturnDate) VALUES ('" + borrowID + "', '" + itemID + "', '" + memberID + "', '" + returnDate + "')";
+                    statement.executeUpdate(insertReturnQuery);
+                    String updateItemQuery = "UPDATE item SET Availability = 1 WHERE ItemId = '" + itemID + "'";
+                    statement.executeUpdate(updateItemQuery);
+                    JOptionPane.showMessageDialog(null, "Item returned successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    returnItemWindow.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid Borrow ID.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (SQLException e) {
+                Log.write("An error occurred. \n" + " ".repeat(24) + "ERR Details-" + Item.class.getName() + " - " + e.getMessage());
+                JOptionPane.showMessageDialog(null, "Something went wrong with your account. Try again or contact your administrator", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_rReturnButtonActionPerformed
+
+    private void barrowRecordWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_barrowRecordWindowOpened
+        String query = "SELECT br.BorrowID, i.Title, m.Name AS Borrower, br.BorrowDate, br.DueDate, rt.ReturnDate, f.Amount AS Fine " +
+                       "FROM Borrow br " +
+                       "JOIN Item i ON i.ItemId = br.ItemID " +
+                       "JOIN Member m ON br.MemberID = m.MId " +
+                       "LEFT JOIN ReturnTable rt ON br.BorrowID = rt.BorrowID " +
+                       "LEFT JOIN Fine f ON br.FineID = f.FineID";
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet rs = null;
+        try {
+            connection = db.connect();
+            statement = connection.createStatement();
+            rs = statement.executeQuery(query);
+            DefaultTableModel model = (DefaultTableModel) borrowTable.getModel();
+            model.setRowCount(0); // Clear existing rows
+
+            while (rs.next()) {
+                String borrowID = rs.getString("BorrowID");
+                String itemTitle = rs.getString("Title");
+                String borrowerName = rs.getString("Borrower");
+                String borrowDate = rs.getString("BorrowDate");
+                String dueDate = rs.getString("DueDate");
+                String returnDate = rs.getString("ReturnDate");
+                String fine = rs.getString("Fine");
+                model.addRow(new Object[]{borrowID, itemTitle, borrowerName, borrowDate, dueDate, returnDate, fine});
+            }
+
+        } catch (SQLException e) {
+                Log.write("A Error occurred. \n"+" ".repeat(24)+"ERR Details-"+Item.class.getName()+" - "+e.getMessage());
+                JOptionPane.showMessageDialog(null, "Something is went wrong with your account. Try again or contact your administrator","Message", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_barrowRecordWindowOpened
+
+    private void addBook1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBook1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_bMemberIdActionPerformed
-    
+    }//GEN-LAST:event_addBook1ActionPerformed
+
+    private void addDVD1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDVD1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addDVD1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1525,8 +1953,10 @@ public class Home extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Description;
+    private javax.swing.JButton ViewAllRecords;
     private javax.swing.JButton addBarrow;
     private javax.swing.JButton addBook;
+    private javax.swing.JButton addBook1;
     private javax.swing.JTextField addBookAuthor;
     private javax.swing.JPanel addBookBackground;
     private javax.swing.JTextField addBookISBN;
@@ -1538,6 +1968,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTextField addBookYear;
     private javax.swing.JTextField addBookYear1;
     private javax.swing.JButton addDVD;
+    private javax.swing.JButton addDVD1;
     private javax.swing.JPanel addDVDBackground;
     private javax.swing.JTextField addDVDDirector;
     private javax.swing.JTextField addDVDNum;
@@ -1569,18 +2000,32 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPasswordField addStaffPwd;
     private javax.swing.JTextField addStaffTele;
     private javax.swing.JFrame addStaffWindow;
+    private javax.swing.JLabel authorBorrow;
+    private javax.swing.JLabel b1;
+    private javax.swing.JLabel b2;
+    private javax.swing.JLabel b3;
+    private javax.swing.JLabel bDate;
+    private org.jdesktop.swingx.JXDatePicker bDueDate;
     private javax.swing.JTextField bItemId;
     private javax.swing.JTextField bMemberId;
-    private javax.swing.JFrame barrowItemWindow;
-    private javax.swing.JPanel barrowItembg;
+    private javax.swing.JFrame barrowRecord;
     private javax.swing.JPanel bg;
+    private javax.swing.JPanel bgBorrow;
     private javax.swing.JLabel bookName;
+    private javax.swing.JFrame borrowItemWindow;
+    private javax.swing.JPanel borrowItembg;
+    private javax.swing.JPanel borrowRecordBg;
+    private javax.swing.JTable borrowTable;
+    private javax.swing.JLabel dDate;
+    private javax.swing.JLabel fPrice;
     private javax.swing.JPanel header;
     private javax.swing.JPanel iAV;
+    private javax.swing.JLabel isbnBorrow;
     private javax.swing.JLabel itemIDTxt;
     private javax.swing.JLabel itemType;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -1588,6 +2033,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
@@ -1610,22 +2056,30 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel logo;
     private javax.swing.JButton logoutButton;
     private javax.swing.JFrame logoutWindow;
     private javax.swing.JPanel logoutWindowBackground;
     private javax.swing.JPanel mAV;
     private javax.swing.JButton memRegButton;
+    private javax.swing.JLabel nameBorrow;
     private javax.swing.JButton noButton;
+    private javax.swing.JLabel pubBorrow;
+    private javax.swing.JTextField rBorrowID;
+    private javax.swing.JButton rReturnButton;
     private javax.swing.JLabel recordIcon;
+    private javax.swing.JPanel returnBg;
+    private javax.swing.JFrame returnItemWindow;
     private javax.swing.JTextField searchBox;
     private javax.swing.JButton staffRegButton;
-    private javax.swing.JButton viewBarrow;
+    private javax.swing.JLabel typeBorrow;
     private javax.swing.JLabel viewRecordTxt;
     private javax.swing.JPanel viewRecords;
-    private javax.swing.JButton viewReturn;
     private javax.swing.JLabel welcomeUser;
+    private javax.swing.JLabel yearBorrow;
     private javax.swing.JButton yesButton;
     // End of variables declaration//GEN-END:variables
 }

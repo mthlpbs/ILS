@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Mithila Prabashwara
@@ -30,48 +31,17 @@ public class Member {
         }
         return null;
     }
-
-   public static boolean checkMemberBorrowStatus(String memberId) throws SQLException {
-        Connection conn = db.connect();
-        String queryBorrow = "SELECT b.ItemID, b.DueDate " +
-                             "FROM Borrow b " +
-                             "WHERE b.MemberID = ? " +
-                             "AND b.ItemID NOT IN (SELECT r.ItemID FROM ReturnTable r WHERE r.MemberID = ?)";
-        String queryReturn = "SELECT r.ReturnDate, f.Amount " +
-                             "FROM ReturnTable r " +
-                             "LEFT JOIN Fine f ON r.FineID = f.FineID " +
-                             "WHERE r.MemberID = ? AND r.ItemID = ?";
-
-        try (PreparedStatement borrowStmt = conn.prepareStatement(queryBorrow)) {
-            borrowStmt.setString(1, memberId);
-            borrowStmt.setString(2, memberId);
-
-            ResultSet rsBorrow = borrowStmt.executeQuery();
-            if (!rsBorrow.next()) {
-                return true;
-            } else {
-                String itemId = rsBorrow.getString("ItemID");
-                java.sql.Date dueDate = rsBorrow.getDate("DueDate");
-
-                try (PreparedStatement returnStmt = conn.prepareStatement(queryReturn)) {
-                    returnStmt.setString(1, memberId);
-                    returnStmt.setString(2, itemId);
-
-                    ResultSet rsReturn = returnStmt.executeQuery();
-
-                    if (rsReturn.next()) {
-                        java.sql.Date returnDate = rsReturn.getDate("ReturnDate");
-                        double fineAmount = rsReturn.getDouble("Amount");
-                        if (returnDate.after(dueDate)) {
-                            return fineAmount == 0;
-                        } else {
-                            return true;
-                        }
-                    } else {
-                        return false;
-                    }
-                }
-            }
+   
+    public static boolean isMemIdExists(String id) throws SQLException {
+        try {
+            ResultSet rs = db.connect().createStatement().executeQuery("SELECT * FROM member WHERE MID = '"+id+"'");
+            if (rs.next()) {
+                return true;}
+        } catch (SQLException e) {
+                Log.write("A Error occurred. \n"+" ".repeat(24)+"ERR Details-"+Item.class.getName()+" - "+e.getMessage());
+                JOptionPane.showMessageDialog(null, "Something is went wrong with your account. Try again or contact your administrator","Message", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
+        return false;
     }
 }
