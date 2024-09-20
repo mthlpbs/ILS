@@ -88,7 +88,7 @@ public class Valid {
        return Pwd.matches(Cpwd);
     }
 
-    //Used to check the login credentials and if the inputs are null or not in correct format throws a Exception
+
     public static void login(String id, String pass) throws InvalidLoginCredentialsException {
         if (checkNull(id) && checkNull(pass)) {throw new InvalidLoginCredentialsException("Please enter sid &  password.");}
         else if (checkNull(id)) { throw new InvalidLoginCredentialsException("Please enter a sid.");}
@@ -99,7 +99,7 @@ public class Valid {
         else if (checkSymbols(pass)) { throw new InvalidLoginCredentialsException("The password must contain only alphanumeric characters. Symbols are not allowed. Try again.");}
     }
 
-    //Used to check member registration Details
+
     public static void member(String Name, String Email, String NIC, String Age, String TeleNum, String Addr) throws InvalidMemRegCredentialsException {
         String format = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$";
         if (checkNull(Name)) { throw new InvalidMemRegCredentialsException("Please enter a name."); }
@@ -118,7 +118,6 @@ public class Valid {
         else if (Integer.parseInt(Age)>0 && Integer.parseInt(Age)>=120) { throw new InvalidMemRegCredentialsException("Please enter a valid age. Try again."); }
     }
 
-    //Used to check staff registration Details
     public static void staff(String Name, String Email, String NIC, String TeleNum, String Pwd, String CPwd) throws InvalidStaffRegCredentialsException {
         String format = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$";
         if (checkNull(Name)) { throw new InvalidStaffRegCredentialsException("Please enter a name."); }
@@ -147,8 +146,6 @@ public class Valid {
         if (!Iisbn.matches(isbnFormat)) {
             throw new InvalidBookCredentialsException("Please enter a valid ISBN.");
         }
-        
-        // Check if year is a valid number
         try {
             int year = Integer.parseInt(Iyear);
             if (year <= 0) {

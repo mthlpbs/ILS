@@ -71,8 +71,6 @@ public class DVD extends Item {
         try {
             Connection connection = db.connect();
             Statement statement = connection.createStatement();
-            
-            // Get DirectorId and PublisherId from DVD table
             ResultSet resultSet = statement.executeQuery("SELECT DirectorId, PublisherId, NumOfDVD, Year FROM DVD WHERE ItemId = '" + id + "'");
             String directorId, publisherId;
             if (resultSet.next()) {
@@ -83,16 +81,12 @@ public class DVD extends Item {
             } else {
                 throw new SQLException("Failed to get DVD details.");
             }
-            
-            // Get Director name
             ResultSet directorResultSet = statement.executeQuery("SELECT Name FROM Director WHERE DirectorId = '" + directorId + "'");
             if (directorResultSet.next()) {
                 details[0] = directorResultSet.getString("Name");
             } else {
                 throw new SQLException("Failed to get director name.");
             }
-            
-            // Get Publisher name
             ResultSet publisherResultSet = statement.executeQuery("SELECT Name FROM DVDPublisher WHERE DPublisherId = '" + publisherId + "'");
             if (publisherResultSet.next()) {
                 details[1] = publisherResultSet.getString("Name");

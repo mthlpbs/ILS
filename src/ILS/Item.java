@@ -43,19 +43,29 @@ public class Item {
     }
 
     public static void barrowItem(String id, String mid, String dueDate) {
-        Statement statement;
+        Statement statement = null;
+        ResultSet resultSet = null;
         try {
             statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO borrow (ItemID, MemberID, BorrowDate, DueDate) VALUES ('" + id + "', '" + mid + "', CURDATE(), '" + dueDate + "')");
             statement.executeUpdate("UPDATE item SET Availability = '0' WHERE ItemId = '" + id + "'");
-            ResultSet resultSet = statement.executeQuery("SELECT BorrowID FROM borrow WHERE ItemID = '"+id+"'");
-            if(resultSet.next()) {
-                JOptionPane.showMessageDialog(null," The item is issued successfully. The borrow id is "+resultSet.getString("BorrowID"));
+            String query = "SELECT BorrowID FROM borrow WHERE ItemID = '" + id + "' AND DueDate = '" + dueDate + "'";
+            resultSet = statement.executeQuery(query);
+            if (resultSet.next()) {
+                JOptionPane.showMessageDialog(null, "The item is issued successfully. The borrow id is " + resultSet.getString("BorrowID"));
             }
         } catch (SQLException e) {
-            Log.write("A Error occurred. \n"+" ".repeat(24)+"ERR Details-"+Item.class.getName()+" - "+e.getMessage());
-            JOptionPane.showMessageDialog(null,"An unexpected Error. Try again or contact your administrator","Message", JOptionPane.ERROR_MESSAGE);
-        } 
+            Log.write("An error occurred. \n" + " ".repeat(24) + "ERR Details-" + Item.class.getName() + " - " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "An unexpected error occurred. Try again or contact your administrator", "Message", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (statement != null) statement.close();
+            } catch (SQLException e) {
+                Log.write("An error occurred. \n" + " ".repeat(24) + "ERR Details-" + Item.class.getName() + " - " + e.getMessage());
+                JOptionPane.showMessageDialog(null, "An unexpected error occurred. Try again or contact your administrator", "Message", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     public static double returnItem(String borrowId) {
@@ -107,7 +117,7 @@ public class Item {
                 boolean availability = rs.getBoolean("Availability");
                 return availability;
             } else {
-                return false; // Item not found
+                return false;
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Enter a valid Item ID.", "Message", JOptionPane.ERROR_MESSAGE);
@@ -132,7 +142,7 @@ public class Item {
                 details[3] = rs.getString("Availability");
                 return details;
             } else {
-                return null; // Item not found
+                return null;
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "An unexpected Error. Try again or contact your administrator", "Message", JOptionPane.ERROR_MESSAGE);
@@ -156,7 +166,7 @@ public class Item {
             stmt.setString(1, borrowId);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                bookInfo[0] = "Book"; // Type
+                bookInfo[0] = "Book";
                 bookInfo[1] = rs.getString("Title");
                 bookInfo[2] = rs.getString("Year");
                 bookInfo[3] = rs.getString("AuthorName");
@@ -217,7 +227,7 @@ public class Item {
                 return rs.getString("TypeName");
             }
         }
-        return null; // Borrow record not found
+        return null;
     }
     
     public static boolean isBorrowIdExists(String borrowId) throws SQLException {

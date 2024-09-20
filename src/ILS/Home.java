@@ -145,6 +145,26 @@ public class Home extends javax.swing.JFrame {
         borrowRecordBg = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         borrowTable = new javax.swing.JTable();
+        itSearch1 = new javax.swing.JTextField();
+        itemSearch = new javax.swing.JFrame();
+        itemSearchBg = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        itemTable = new javax.swing.JTable();
+        itSearch = new javax.swing.JTextField();
+        SearchBoxMem = new javax.swing.JFrame();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        jLabel41 = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
         bg = new javax.swing.JPanel();
         header = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
@@ -158,16 +178,14 @@ public class Home extends javax.swing.JFrame {
         addBook = new javax.swing.JButton();
         addDVD = new javax.swing.JButton();
         addItemIcon = new javax.swing.JLabel();
-        searchBox = new javax.swing.JTextField();
         addRecord = new javax.swing.JPanel();
-        recordIcon = new javax.swing.JLabel();
         addReturn = new javax.swing.JButton();
         addBarrow = new javax.swing.JButton();
-        viewRecords = new javax.swing.JPanel();
         viewRecordTxt = new javax.swing.JLabel();
+        viewRecords = new javax.swing.JPanel();
         ViewAllRecords = new javax.swing.JButton();
-        addBook1 = new javax.swing.JButton();
-        addDVD1 = new javax.swing.JButton();
+        item = new javax.swing.JButton();
+        recordIcon = new javax.swing.JLabel();
 
         logoutWindow.setTitle("Message");
         logoutWindow.setAlwaysOnTop(true);
@@ -1162,6 +1180,17 @@ public class Home extends javax.swing.JFrame {
         borrowTable.setRowHeight(40);
         borrowTable.setSelectionBackground(new java.awt.Color(255, 255, 255));
         jScrollPane2.setViewportView(borrowTable);
+        if (borrowTable.getColumnModel().getColumnCount() > 0) {
+            borrowTable.getColumnModel().getColumn(6).setHeaderValue("Fine");
+        }
+
+        itSearch1.setBackground(new java.awt.Color(238, 238, 238));
+        itSearch1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
+        itSearch1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                itSearch1KeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout borrowRecordBgLayout = new javax.swing.GroupLayout(borrowRecordBg);
         borrowRecordBg.setLayout(borrowRecordBgLayout);
@@ -1171,12 +1200,18 @@ public class Home extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 941, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(17, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, borrowRecordBgLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(itSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(288, 288, 288))
         );
         borrowRecordBgLayout.setVerticalGroup(
             borrowRecordBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, borrowRecordBgLayout.createSequentialGroup()
-                .addContainerGap(62, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addComponent(itSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
         );
 
@@ -1191,6 +1226,214 @@ public class Home extends javax.swing.JFrame {
             .addComponent(borrowRecordBg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        itemSearch.setTitle("Item Records");
+        itemSearch.setLocation(new java.awt.Point(204, 201));
+        itemSearch.setSize(new java.awt.Dimension(973, 660));
+        itemSearch.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                itemSearchWindowOpened(evt);
+            }
+        });
+
+        itemSearchBg.setBackground(new java.awt.Color(255, 255, 255));
+
+        jScrollPane3.setBackground(new java.awt.Color(252, 249, 249));
+
+        itemTable.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        itemTable.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"", null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Item", "Type", "Title", "Author / Director", "Year", "Publisher"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        itemTable.setGridColor(new java.awt.Color(204, 204, 204));
+        itemTable.setMinimumSize(new java.awt.Dimension(941, 581));
+        itemTable.setPreferredSize(new java.awt.Dimension(941, 581));
+        itemTable.setRowHeight(40);
+        itemTable.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane3.setViewportView(itemTable);
+
+        itSearch.setBackground(new java.awt.Color(238, 238, 238));
+        itSearch.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
+        itSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                itSearchKeyReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout itemSearchBgLayout = new javax.swing.GroupLayout(itemSearchBg);
+        itemSearchBg.setLayout(itemSearchBgLayout);
+        itemSearchBgLayout.setHorizontalGroup(
+            itemSearchBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(itemSearchBgLayout.createSequentialGroup()
+                .addGroup(itemSearchBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(itemSearchBgLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 941, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(itemSearchBgLayout.createSequentialGroup()
+                        .addGap(286, 286, 286)
+                        .addComponent(itSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        itemSearchBgLayout.setVerticalGroup(
+            itemSearchBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, itemSearchBgLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(itSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 544, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
+        );
+
+        javax.swing.GroupLayout itemSearchLayout = new javax.swing.GroupLayout(itemSearch.getContentPane());
+        itemSearch.getContentPane().setLayout(itemSearchLayout);
+        itemSearchLayout.setHorizontalGroup(
+            itemSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(itemSearchBg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        itemSearchLayout.setVerticalGroup(
+            itemSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(itemSearchBg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        SearchBoxMem.setBackground(new java.awt.Color(237, 236, 236));
+
+        jPanel2.setBackground(new java.awt.Color(248, 248, 248));
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel18.setText("sTele");
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel21.setText("User Name  -");
+
+        jLabel36.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel36.setText("Tele. Num.  -");
+
+        jLabel37.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel37.setText("sName");
+
+        jLabel38.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel38.setText("Age             -");
+
+        jLabel39.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel39.setText("sAge");
+
+        jLabel40.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel40.setText("Email           -");
+
+        jLabel41.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel41.setText("sEmail");
+
+        jLabel42.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel42.setText("NIC              -");
+
+        jLabel43.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel43.setText("sNIC");
+
+        jLabel44.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel44.setText("Address       -");
+
+        jLabel45.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel45.setText("sAddress");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel36, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 6, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel39, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel42, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel44, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(124, 124, 124))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+        );
+
+        javax.swing.GroupLayout SearchBoxMemLayout = new javax.swing.GroupLayout(SearchBoxMem.getContentPane());
+        SearchBoxMem.getContentPane().setLayout(SearchBoxMemLayout);
+        SearchBoxMemLayout.setHorizontalGroup(
+            SearchBoxMemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        SearchBoxMemLayout.setVerticalGroup(
+            SearchBoxMemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Home - ILS");
         setBackground(new java.awt.Color(255, 255, 255));
@@ -1198,7 +1441,7 @@ public class Home extends javax.swing.JFrame {
         setLocation(new java.awt.Point(204, 201));
         setResizable(false);
 
-        bg.setBackground(new java.awt.Color(248, 247, 247));
+        bg.setBackground(new java.awt.Color(246, 241, 241));
 
         header.setBackground(new java.awt.Color(248, 247, 247));
 
@@ -1347,29 +1590,12 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        searchBox.setBackground(new java.awt.Color(234, 228, 240));
-        searchBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        searchBox.setToolTipText("");
-        searchBox.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        searchBox.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        searchBox.setName(""); // NOI18N
-        searchBox.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        searchBox.setSelectionColor(new java.awt.Color(210, 223, 235));
-        searchBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchBoxActionPerformed(evt);
-            }
-        });
-
         addRecord.setBackground(new java.awt.Color(237, 228, 241));
         addRecord.setPreferredSize(new java.awt.Dimension(205, 184));
 
-        recordIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        recordIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/pageView.png"))); // NOI18N
-
         addReturn.setBackground(new java.awt.Color(205, 182, 216));
         addReturn.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        addReturn.setText("Return item");
+        addReturn.setText("Return");
         addReturn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         addReturn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1379,13 +1605,16 @@ public class Home extends javax.swing.JFrame {
 
         addBarrow.setBackground(new java.awt.Color(205, 182, 216));
         addBarrow.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        addBarrow.setText("Barrow item");
+        addBarrow.setText("Barrow");
         addBarrow.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         addBarrow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addBarrowActionPerformed(evt);
             }
         });
+
+        viewRecordTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        viewRecordTxt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/tableView.png"))); // NOI18N
 
         javax.swing.GroupLayout addRecordLayout = new javax.swing.GroupLayout(addRecord);
         addRecord.setLayout(addRecordLayout);
@@ -1400,15 +1629,15 @@ public class Home extends javax.swing.JFrame {
                             .addComponent(addReturn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(addRecordLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(recordIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(viewRecordTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(7, Short.MAX_VALUE))
         );
         addRecordLayout.setVerticalGroup(
             addRecordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(addRecordLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(recordIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(viewRecordTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(addBarrow, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(addReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1417,9 +1646,6 @@ public class Home extends javax.swing.JFrame {
 
         viewRecords.setBackground(new java.awt.Color(237, 228, 241));
         viewRecords.setPreferredSize(new java.awt.Dimension(205, 184));
-
-        viewRecordTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        viewRecordTxt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/tableView.png"))); // NOI18N
 
         ViewAllRecords.setBackground(new java.awt.Color(205, 182, 216));
         ViewAllRecords.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -1431,52 +1657,41 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        addBook1.setBackground(new java.awt.Color(205, 182, 216));
-        addBook1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        addBook1.setText("Book");
-        addBook1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        addBook1.addActionListener(new java.awt.event.ActionListener() {
+        item.setBackground(new java.awt.Color(205, 182, 216));
+        item.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        item.setText("Search");
+        item.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        item.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addBook1ActionPerformed(evt);
+                itemActionPerformed(evt);
             }
         });
 
-        addDVD1.setBackground(new java.awt.Color(205, 182, 216));
-        addDVD1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        addDVD1.setText("DVD");
-        addDVD1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        addDVD1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addDVD1ActionPerformed(evt);
-            }
-        });
+        recordIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        recordIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/pageView.png"))); // NOI18N
 
         javax.swing.GroupLayout viewRecordsLayout = new javax.swing.GroupLayout(viewRecords);
         viewRecords.setLayout(viewRecordsLayout);
         viewRecordsLayout.setHorizontalGroup(
             viewRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(viewRecordsLayout.createSequentialGroup()
-                .addComponent(viewRecordTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 4, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewRecordsLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(viewRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ViewAllRecords, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(viewRecordsLayout.createSequentialGroup()
-                        .addComponent(addBook1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(addDVD1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(item, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ViewAllRecords, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE))
                 .addGap(32, 32, 32))
+            .addGroup(viewRecordsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(recordIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(7, Short.MAX_VALUE))
         );
         viewRecordsLayout.setVerticalGroup(
             viewRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(viewRecordsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(viewRecordTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(recordIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(viewRecordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addBook1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addDVD1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(item, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addComponent(ViewAllRecords, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(21, Short.MAX_VALUE))
@@ -1497,18 +1712,12 @@ public class Home extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(viewRecords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
-            .addGroup(bgLayout.createSequentialGroup()
-                .addGap(245, 245, 245)
-                .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         bgLayout.setVerticalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(searchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(195, 195, 195)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 270, Short.MAX_VALUE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(addPerson, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1516,8 +1725,6 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(viewRecords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16))
         );
-
-        searchBox.getAccessibleContext().setAccessibleName("Search Box");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1593,10 +1800,6 @@ public class Home extends javax.swing.JFrame {
     private void ViewAllRecordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewAllRecordsActionPerformed
         barrowRecord.setVisible(true);
     }//GEN-LAST:event_ViewAllRecordsActionPerformed
-
-    private void searchBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchBoxActionPerformed
 
     private void memRegButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_memRegButtonActionPerformed
         String MemName = addMemName.getText();
@@ -1877,40 +2080,166 @@ public class Home extends javax.swing.JFrame {
                        "JOIN Member m ON br.MemberID = m.MId " +
                        "LEFT JOIN ReturnTable rt ON br.BorrowID = rt.BorrowID " +
                        "LEFT JOIN Fine f ON br.FineID = f.FineID";
-        Connection connection = null;
-        Statement statement = null;
-        ResultSet rs = null;
+        Connection cnn = null;
+        Statement snn = null;
+        ResultSet rnn = null;
         try {
-            connection = db.connect();
-            statement = connection.createStatement();
-            rs = statement.executeQuery(query);
+            cnn = db.connect();
+            snn = cnn.createStatement();
+            rnn = snn.executeQuery(query);
             DefaultTableModel model = (DefaultTableModel) borrowTable.getModel();
-            model.setRowCount(0); // Clear existing rows
+            model.setRowCount(0);
 
-            while (rs.next()) {
-                String borrowID = rs.getString("BorrowID");
-                String itemTitle = rs.getString("Title");
-                String borrowerName = rs.getString("Borrower");
-                String borrowDate = rs.getString("BorrowDate");
-                String dueDate = rs.getString("DueDate");
-                String returnDate = rs.getString("ReturnDate");
-                String fine = rs.getString("Fine");
+            while (rnn.next()) {
+                String borrowID = rnn.getString("BorrowID");
+                String itemTitle = rnn.getString("Title");
+                String borrowerName = rnn.getString("Borrower");
+                String borrowDate = rnn.getString("BorrowDate");
+                String dueDate = rnn.getString("DueDate");
+                String returnDate = rnn.getString("ReturnDate");
+                String fine = rnn.getString("Fine");
                 model.addRow(new Object[]{borrowID, itemTitle, borrowerName, borrowDate, dueDate, returnDate, fine});
             }
 
         } catch (SQLException e) {
-                Log.write("A Error occurred. \n"+" ".repeat(24)+"ERR Details-"+Item.class.getName()+" - "+e.getMessage());
-                JOptionPane.showMessageDialog(null, "Something is went wrong with your account. Try again or contact your administrator","Message", JOptionPane.ERROR_MESSAGE);
+            Log.write("An error occurred. \n" + " ".repeat(24) + "ERR Details-" + Home.class.getName() + " - " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Something went wrong with your account. Try again or contact your administrator", "Message", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (rnn != null) rnn.close();
+                if (snn != null) snn.close();
+                if (cnn != null) cnn.close();
+            } catch (SQLException e) {
+                Log.write("An error occurred while closing resources. \n" + " ".repeat(24) + "ERR Details-" + Home.class.getName() + " - " + e.getMessage());
+            }
         }
     }//GEN-LAST:event_barrowRecordWindowOpened
 
-    private void addBook1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBook1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addBook1ActionPerformed
+    private void itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemActionPerformed
+        itemSearch.setVisible(true);
+    }//GEN-LAST:event_itemActionPerformed
 
-    private void addDVD1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDVD1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addDVD1ActionPerformed
+    private void itemSearchWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_itemSearchWindowOpened
+        DefaultTableModel model = (DefaultTableModel) itemTable.getModel();
+        model.setRowCount(0);
+        try (Connection conn = db.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT i.ItemId, t.TypeName, i.Title, " +
+                                              "COALESCE(a.Name, d.Name) AS AuthorDirector, " +
+                                              "COALESCE(b.Year, dvd.Year) AS Year, " +
+                                              "COALESCE(p.Name, dp.Name) AS Publisher " +
+                                              "FROM item i " +
+                                              "LEFT JOIN type t ON i.TypeId = t.TypeId " +
+                                              "LEFT JOIN book b ON i.ItemId = b.ItemId " +
+                                              "LEFT JOIN author a ON b.AuthorId = a.AuthorId " +
+                                              "LEFT JOIN publisher p ON b.PublisherId = p.PublisherId " +
+                                              "LEFT JOIN dvd dvd ON i.ItemId = dvd.ItemId " +
+                                              "LEFT JOIN director d ON dvd.DirectorId = d.DirectorId " +
+                                              "LEFT JOIN dvdpublisher dp ON dvd.PublisherId = dp.DPublisherId")) {
+
+            while (rs.next()) {
+                String itemId = rs.getString("ItemId");
+                String typeName = rs.getString("TypeName");
+                String title = rs.getString("Title");
+                String authorDirector = rs.getString("AuthorDirector");
+                String year = rs.getString("Year");
+                String publisher = rs.getString("Publisher");
+
+                model.addRow(new Object[]{itemId, typeName, title, authorDirector, year, publisher});
+            }
+        } catch (SQLException e) {
+            Log.write("An error occurred. \n" + " ".repeat(24) + "ERR Details-" + Home.class.getName() + " - " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Something went wrong with your account. Try again or contact your administrator", "Message", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_itemSearchWindowOpened
+
+    private void itSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itSearchKeyReleased
+        String searchText = itSearch.getText().trim();
+        DefaultTableModel model = (DefaultTableModel) itemTable.getModel();
+        model.setRowCount(0); // Clear existing data
+
+        String query = "SELECT i.ItemId, t.TypeName, i.Title, " +
+                       "COALESCE(a.Name, d.Name) AS AuthorDirector, " +
+                       "COALESCE(b.Year, dvd.Year) AS Year, " +
+                       "COALESCE(p.Name, dp.Name) AS Publisher " +
+                       "FROM item i " +
+                       "LEFT JOIN type t ON i.TypeId = t.TypeId " +
+                       "LEFT JOIN book b ON i.ItemId = b.ItemId " +
+                       "LEFT JOIN author a ON b.AuthorId = a.AuthorId " +
+                       "LEFT JOIN publisher p ON b.PublisherId = p.PublisherId " +
+                       "LEFT JOIN dvd dvd ON i.ItemId = dvd.ItemId " +
+                       "LEFT JOIN director d ON dvd.DirectorId = d.DirectorId " +
+                       "LEFT JOIN dvdpublisher dp ON dvd.PublisherId = dp.DPublisherId " +
+                       "WHERE i.Title LIKE '%" + searchText + "%' " +
+                       "OR a.Name LIKE '%" + searchText + "%' " +
+                       "OR d.Name LIKE '%" + searchText + "%'";
+
+        try (Connection conn = db.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet resultSetx = stmt.executeQuery(query)) {
+
+            while (resultSetx.next()) {
+                String itemId = resultSetx.getString("ItemId");
+                String typeName = resultSetx.getString("TypeName");
+                String title = resultSetx.getString("Title");
+                String authorDirector = resultSetx.getString("AuthorDirector");
+                String year = resultSetx.getString("Year");
+                String publisher = resultSetx.getString("Publisher");
+
+                model.addRow(new Object[]{itemId, typeName, title, authorDirector, year, publisher});
+            }
+        } catch (SQLException e) {
+            Log.write("An error occurred. \n" + " ".repeat(24) + "ERR Details-" + Home.class.getName() + " - " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Something went wrong with your account. Try again or contact your administrator", "Message", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_itSearchKeyReleased
+
+    private void itSearch1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_itSearch1KeyReleased
+        String searchText = itSearch1.getText().trim();
+        String query = "SELECT br.BorrowID, i.Title, m.Name AS Borrower, br.BorrowDate, br.DueDate, rt.ReturnDate, f.Amount AS Fine " +
+                       "FROM Borrow br " +
+                       "JOIN Item i ON i.ItemId = br.ItemID " +
+                       "JOIN Member m ON br.MemberID = m.MId " +
+                       "LEFT JOIN ReturnTable rt ON br.BorrowID = rt.BorrowID " +
+                       "LEFT JOIN Fine f ON br.FineID = f.FineID " +
+                       "WHERE i.Title LIKE '%" + searchText + "%' " +
+                       "OR m.Name LIKE '%" + searchText + "%' " +
+                       "OR br.BorrowID LIKE '%" + searchText + "%'";
+
+        Connection cnn = null;
+        Statement snn = null;
+        ResultSet rnn = null;
+        try {
+            cnn = db.connect();
+            snn = cnn.createStatement();
+            rnn = snn.executeQuery(query);
+            DefaultTableModel model = (DefaultTableModel) borrowTable.getModel();
+            model.setRowCount(0);
+
+            while (rnn.next()) {
+                String borrowID = rnn.getString("BorrowID");
+                String itemTitle = rnn.getString("Title");
+                String borrowerName = rnn.getString("Borrower");
+                String borrowDate = rnn.getString("BorrowDate");
+                String dueDate = rnn.getString("DueDate");
+                String returnDate = rnn.getString("ReturnDate");
+                String fine = rnn.getString("Fine");
+                model.addRow(new Object[]{borrowID, itemTitle, borrowerName, borrowDate, dueDate, returnDate, fine});
+            }
+
+        } catch (SQLException e) {
+            Log.write("An error occurred. \n" + " ".repeat(24) + "ERR Details-" + Home.class.getName() + " - " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Something went wrong with your account. Try again or contact your administrator", "Message", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (rnn != null) rnn.close();
+                if (snn != null) snn.close();
+                if (cnn != null) cnn.close();
+            } catch (SQLException e) {
+                Log.write("An error occurred while closing resources. \n" + " ".repeat(24) + "ERR Details-" + Home.class.getName() + " - " + e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_itSearch1KeyReleased
 
     /**
      * @param args the command line arguments
@@ -1953,10 +2282,10 @@ public class Home extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Description;
+    private javax.swing.JFrame SearchBoxMem;
     private javax.swing.JButton ViewAllRecords;
     private javax.swing.JButton addBarrow;
     private javax.swing.JButton addBook;
-    private javax.swing.JButton addBook1;
     private javax.swing.JTextField addBookAuthor;
     private javax.swing.JPanel addBookBackground;
     private javax.swing.JTextField addBookISBN;
@@ -1968,7 +2297,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTextField addBookYear;
     private javax.swing.JTextField addBookYear1;
     private javax.swing.JButton addDVD;
-    private javax.swing.JButton addDVD1;
     private javax.swing.JPanel addDVDBackground;
     private javax.swing.JTextField addDVDDirector;
     private javax.swing.JTextField addDVDNum;
@@ -2021,7 +2349,13 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel header;
     private javax.swing.JPanel iAV;
     private javax.swing.JLabel isbnBorrow;
+    private javax.swing.JTextField itSearch;
+    private javax.swing.JTextField itSearch1;
+    private javax.swing.JButton item;
     private javax.swing.JLabel itemIDTxt;
+    private javax.swing.JFrame itemSearch;
+    private javax.swing.JPanel itemSearchBg;
+    private javax.swing.JTable itemTable;
     private javax.swing.JLabel itemType;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -2032,9 +2366,11 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -2050,15 +2386,27 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel logo;
     private javax.swing.JButton logoutButton;
     private javax.swing.JFrame logoutWindow;
@@ -2073,7 +2421,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel recordIcon;
     private javax.swing.JPanel returnBg;
     private javax.swing.JFrame returnItemWindow;
-    private javax.swing.JTextField searchBox;
     private javax.swing.JButton staffRegButton;
     private javax.swing.JLabel typeBorrow;
     private javax.swing.JLabel viewRecordTxt;

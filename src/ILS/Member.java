@@ -44,4 +44,28 @@ public class Member {
         }
         return false;
     }
+    
+    public static String[] getMemberInfo(String memberId) {
+        String[] memberInfo = new String[7];
+        try {
+            Connection connection = db.connect();
+            Statement statement = connection.createStatement();
+            String query = "SELECT MId, Name, Tel, Email, NIC, Age, Address FROM member WHERE MId = '" + memberId + "'";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            if (resultSet.next()) {
+                memberInfo[0] = resultSet.getString("MId");
+                memberInfo[1] = resultSet.getString("Name");
+                memberInfo[2] = resultSet.getString("Tel");
+                memberInfo[3] = resultSet.getString("Email");
+                memberInfo[4] = resultSet.getString("NIC");
+                memberInfo[5] = String.valueOf(resultSet.getInt("Age"));
+                memberInfo[6] = resultSet.getString("Address");
+            }
+        } catch (SQLException e) {
+            Log.write("Error occurred while retrieving member information.\n" + " ".repeat(24) + "ERR MEG -" + e.getMessage());
+            return new String[]{"Failed to retrieve member information. Try again or contact your administrator."};
+        }
+        return memberInfo;
+    }
 }
