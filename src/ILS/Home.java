@@ -13,12 +13,15 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Mithila Prabashwara
  */
 public class Home extends javax.swing.JFrame {
     private static boolean rStatus=true;
+    private static String searchedKey;
     /**
      * Creates new form HomePage
      */
@@ -165,6 +168,9 @@ public class Home extends javax.swing.JFrame {
         jLabel43 = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
+        searchItem = new javax.swing.JFrame();
+        searchMember = new javax.swing.JFrame();
+        searchStaff = new javax.swing.JFrame();
         bg = new javax.swing.JPanel();
         header = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
@@ -186,6 +192,8 @@ public class Home extends javax.swing.JFrame {
         ViewAllRecords = new javax.swing.JButton();
         item = new javax.swing.JButton();
         recordIcon = new javax.swing.JLabel();
+        SearchBox = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
 
         logoutWindow.setTitle("Message");
         logoutWindow.setAlwaysOnTop(true);
@@ -1434,6 +1442,39 @@ public class Home extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        javax.swing.GroupLayout searchItemLayout = new javax.swing.GroupLayout(searchItem.getContentPane());
+        searchItem.getContentPane().setLayout(searchItemLayout);
+        searchItemLayout.setHorizontalGroup(
+            searchItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        searchItemLayout.setVerticalGroup(
+            searchItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout searchMemberLayout = new javax.swing.GroupLayout(searchMember.getContentPane());
+        searchMember.getContentPane().setLayout(searchMemberLayout);
+        searchMemberLayout.setHorizontalGroup(
+            searchMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        searchMemberLayout.setVerticalGroup(
+            searchMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout searchStaffLayout = new javax.swing.GroupLayout(searchStaff.getContentPane());
+        searchStaff.getContentPane().setLayout(searchStaffLayout);
+        searchStaffLayout.setHorizontalGroup(
+            searchStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        searchStaffLayout.setVerticalGroup(
+            searchStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Home - ILS");
         setBackground(new java.awt.Color(255, 255, 255));
@@ -1441,7 +1482,7 @@ public class Home extends javax.swing.JFrame {
         setLocation(new java.awt.Point(204, 201));
         setResizable(false);
 
-        bg.setBackground(new java.awt.Color(246, 241, 241));
+        bg.setBackground(new java.awt.Color(245, 245, 245));
 
         header.setBackground(new java.awt.Color(248, 247, 247));
 
@@ -1472,7 +1513,7 @@ public class Home extends javax.swing.JFrame {
             .addGroup(headerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 507, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(welcomeUser, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(logoutButton, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -1492,11 +1533,12 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        addPerson.setBackground(new java.awt.Color(237, 228, 241));
+        addPerson.setBackground(new java.awt.Color(235, 225, 213));
         addPerson.setForeground(new java.awt.Color(105, 105, 105));
 
-        addMember.setBackground(new java.awt.Color(205, 182, 216));
-        addMember.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        addMember.setBackground(new java.awt.Color(175, 175, 175));
+        addMember.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        addMember.setForeground(new java.awt.Color(255, 255, 255));
         addMember.setText("Member");
         addMember.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         addMember.addActionListener(new java.awt.event.ActionListener() {
@@ -1505,8 +1547,9 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        addStaff.setBackground(new java.awt.Color(205, 182, 216));
-        addStaff.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        addStaff.setBackground(new java.awt.Color(175, 175, 175));
+        addStaff.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        addStaff.setForeground(new java.awt.Color(255, 255, 255));
         addStaff.setText("Staff");
         addStaff.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         addStaff.addActionListener(new java.awt.event.ActionListener() {
@@ -1541,11 +1584,13 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        addItem.setBackground(new java.awt.Color(237, 228, 241));
+        addItem.setBackground(new java.awt.Color(235, 225, 213));
+        addItem.setForeground(new java.awt.Color(255, 255, 255));
         addItem.setPreferredSize(new java.awt.Dimension(205, 184));
 
-        addBook.setBackground(new java.awt.Color(205, 182, 216));
-        addBook.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        addBook.setBackground(new java.awt.Color(175, 175, 175));
+        addBook.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        addBook.setForeground(new java.awt.Color(255, 255, 255));
         addBook.setText("Book");
         addBook.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         addBook.addActionListener(new java.awt.event.ActionListener() {
@@ -1554,8 +1599,9 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        addDVD.setBackground(new java.awt.Color(205, 182, 216));
-        addDVD.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        addDVD.setBackground(new java.awt.Color(175, 175, 175));
+        addDVD.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        addDVD.setForeground(new java.awt.Color(255, 255, 255));
         addDVD.setText("DVD");
         addDVD.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         addDVD.addActionListener(new java.awt.event.ActionListener() {
@@ -1590,11 +1636,13 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        addRecord.setBackground(new java.awt.Color(237, 228, 241));
+        addRecord.setBackground(new java.awt.Color(235, 225, 213));
+        addRecord.setForeground(new java.awt.Color(255, 255, 255));
         addRecord.setPreferredSize(new java.awt.Dimension(205, 184));
 
-        addReturn.setBackground(new java.awt.Color(205, 182, 216));
-        addReturn.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        addReturn.setBackground(new java.awt.Color(175, 175, 175));
+        addReturn.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        addReturn.setForeground(new java.awt.Color(255, 255, 255));
         addReturn.setText("Return");
         addReturn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         addReturn.addActionListener(new java.awt.event.ActionListener() {
@@ -1603,8 +1651,9 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        addBarrow.setBackground(new java.awt.Color(205, 182, 216));
-        addBarrow.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        addBarrow.setBackground(new java.awt.Color(175, 175, 175));
+        addBarrow.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        addBarrow.setForeground(new java.awt.Color(255, 255, 255));
         addBarrow.setText("Barrow");
         addBarrow.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         addBarrow.addActionListener(new java.awt.event.ActionListener() {
@@ -1644,11 +1693,13 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        viewRecords.setBackground(new java.awt.Color(237, 228, 241));
+        viewRecords.setBackground(new java.awt.Color(235, 225, 213));
+        viewRecords.setForeground(new java.awt.Color(255, 255, 255));
         viewRecords.setPreferredSize(new java.awt.Dimension(205, 184));
 
-        ViewAllRecords.setBackground(new java.awt.Color(205, 182, 216));
-        ViewAllRecords.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        ViewAllRecords.setBackground(new java.awt.Color(175, 175, 175));
+        ViewAllRecords.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        ViewAllRecords.setForeground(new java.awt.Color(255, 255, 255));
         ViewAllRecords.setText("All Records");
         ViewAllRecords.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         ViewAllRecords.addActionListener(new java.awt.event.ActionListener() {
@@ -1657,9 +1708,10 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        item.setBackground(new java.awt.Color(205, 182, 216));
-        item.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        item.setText("Search");
+        item.setBackground(new java.awt.Color(175, 175, 175));
+        item.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        item.setForeground(new java.awt.Color(255, 255, 255));
+        item.setText("Item List");
         item.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         item.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1697,18 +1749,54 @@ public class Home extends javax.swing.JFrame {
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
+        SearchBox.setBackground(new java.awt.Color(241, 241, 241));
+        SearchBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        SearchBox.setForeground(new java.awt.Color(153, 153, 153));
+        SearchBox.setText(" Search Item ID, Member ID  or Staff ID Here");
+        SearchBox.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(220, 220, 220), 1, true));
+        SearchBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SearchBoxFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                SearchBoxFocusLost(evt);
+            }
+        });
+        SearchBox.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SearchBoxMouseClicked(evt);
+            }
+        });
+
+        jButton2.setBackground(new java.awt.Color(95, 187, 235));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("SEARCH");
+        jButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
         bg.setLayout(bgLayout);
         bgLayout.setHorizontalGroup(
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
-                .addGap(0, 13, Short.MAX_VALUE)
+                .addGap(0, 24, Short.MAX_VALUE)
                 .addComponent(addPerson, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(addItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(addRecord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addComponent(addItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(addRecord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(bgLayout.createSequentialGroup()
+                        .addComponent(SearchBox, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(viewRecords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
@@ -1717,7 +1805,11 @@ public class Home extends javax.swing.JFrame {
             bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgLayout.createSequentialGroup()
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 270, Short.MAX_VALUE)
+                .addGap(38, 38, 38)
+                .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(SearchBox)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
                 .addGroup(bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(addPerson, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1730,9 +1822,7 @@ public class Home extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2144,7 +2234,6 @@ public class Home extends javax.swing.JFrame {
                 String authorDirector = rs.getString("AuthorDirector");
                 String year = rs.getString("Year");
                 String publisher = rs.getString("Publisher");
-
                 model.addRow(new Object[]{itemId, typeName, title, authorDirector, year, publisher});
             }
         } catch (SQLException e) {
@@ -2241,6 +2330,46 @@ public class Home extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_itSearch1KeyReleased
 
+    private void SearchBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchBoxMouseClicked
+
+    }//GEN-LAST:event_SearchBoxMouseClicked
+
+    private void SearchBoxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SearchBoxFocusLost
+        searchedKey=SearchBox.getText();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Log.write("An error occurred. \n" + " ".repeat(24) + "ERR Details-" + Home.class.getName() + " - " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Something went wrong with your account. Try again or contact your administrator", "Message", JOptionPane.ERROR_MESSAGE);
+        }
+        SearchBox.setText("  Search Item ID, Member ID  or Staff ID Here");
+        SearchBox.setForeground(new Color(153,153,153));
+    }//GEN-LAST:event_SearchBoxFocusLost
+
+    private void SearchBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SearchBoxFocusGained
+        SearchBox.setText(" ");
+        SearchBox.setForeground(Color.black);
+    }//GEN-LAST:event_SearchBoxFocusGained
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String[] res = Search.algorithmOfHomeBox(searchedKey);
+        try {
+            if (res[1].matches("1")) {
+                if (Item.isBook(res[0])==true) {
+                    
+                }
+                searchItem.setVisible(true);
+            } else if (res[2].matches("1")) {
+                searchMember.setVisible(true);
+            } else if (res[3].matches("1")) {
+                searchStaff.setVisible(true);
+            }
+        } catch (SQLException e) {
+            Log.write("An error occurred. \n" + " ".repeat(24) + "ERR Details-" + Home.class.getName() + " - " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Something went wrong with your account. Try again or contact your administrator", "Message", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2282,6 +2411,7 @@ public class Home extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Description;
+    private javax.swing.JTextField SearchBox;
     private javax.swing.JFrame SearchBoxMem;
     private javax.swing.JButton ViewAllRecords;
     private javax.swing.JButton addBarrow;
@@ -2358,6 +2488,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTable itemTable;
     private javax.swing.JLabel itemType;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2421,6 +2552,9 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel recordIcon;
     private javax.swing.JPanel returnBg;
     private javax.swing.JFrame returnItemWindow;
+    private javax.swing.JFrame searchItem;
+    private javax.swing.JFrame searchMember;
+    private javax.swing.JFrame searchStaff;
     private javax.swing.JButton staffRegButton;
     private javax.swing.JLabel typeBorrow;
     private javax.swing.JLabel viewRecordTxt;

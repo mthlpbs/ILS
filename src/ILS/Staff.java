@@ -55,4 +55,18 @@ public class Staff {
         }
         return null;
     }
+    
+    public static boolean isStaffIdExists(String id) throws SQLException {
+        try {
+            ResultSet rs = db.connect().createStatement().executeQuery("SELECT * FROM staff WHERE StaffId = '" + id + "'");
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            Log.write("An error occurred. \n" + " ".repeat(24) + "ERR Details-" + Staff.class.getName() + " - " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Something went wrong with your account. Try again or contact your administrator", "Message", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return false;
+    }
 }

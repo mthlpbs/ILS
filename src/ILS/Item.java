@@ -255,4 +255,27 @@ public class Item {
         }
         return false;
     }
+    
+    public static boolean isBook(String itemId) throws SQLException {
+        boolean isBook = false;
+        String query = "SELECT t.TypeName FROM item i JOIN type t ON i.TypeId = t.TypeId WHERE i.ItemId = ?";
+        
+        try (Connection conn = db.connect();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, itemId);
+            ResultSet rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                String typeName = rs.getString("TypeName");
+                if ("Book".equalsIgnoreCase(typeName)) {
+                    isBook = true;
+                }
+            }
+        } catch (SQLException e) {
+            Log.write("An error occurred. \n" + " ".repeat(24) + "ERR Details-" + Item.class.getName() + " - " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Something went wrong with your account. Try again or contact your administrator", "Message", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return isBook;
+    }
 }
