@@ -278,4 +278,56 @@ public class Item {
         
         return isBook;
     }
+    
+    public static String[] getBookDetailsByItemId(String itemId) throws SQLException {
+        Connection cn = db.connect();
+        String[] bookInfo = new String[10];
+        String query = "SELECT i.Title, bk.Year, a.Name AS AuthorName, p.Name AS PublisherName, bk.ISBN " +
+                       "FROM Book bk " +
+                       "JOIN Item i ON i.ItemId = bk.ItemId " +
+                       "JOIN Author a ON bk.AuthorId = a.AuthorId " +
+                       "JOIN Publisher p ON bk.PublisherId = p.PublisherId " +
+                       "WHERE bk.ItemId = '" + itemId + "'";
+
+        try (Statement stmt = cn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                bookInfo[0] = "Book";
+                bookInfo[1] = rs.getString("Title");
+                bookInfo[2] = rs.getString("Year");
+                bookInfo[3] = rs.getString("AuthorName");
+                bookInfo[4] = rs.getString("PublisherName");
+                bookInfo[5] = rs.getString("ISBN");
+
+                return bookInfo;
+            }
+        }
+        return null;
+    }
+
+    public static String[] getDVDDetailsByItemId(String itemId) throws SQLException {
+        Connection cn = db.connect();
+        String[] dvdInfo = new String[10];
+        String query = "SELECT i.Title, d.Year, dr.Name AS DirectorName, dp.Name AS PublisherName, d.NumOfDVD " +
+                       "FROM DVD d " +
+                       "JOIN Item i ON i.ItemId = d.ItemId " +
+                       "JOIN Director dr ON d.DirectorId = dr.DirectorId " +
+                       "JOIN DVDPublisher dp ON d.PublisherId = dp.DPublisherId " +
+                       "WHERE d.ItemId = '" + itemId + "'";
+
+        try (Statement stmt = cn.createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                dvdInfo[0] = "DVD";
+                dvdInfo[1] = rs.getString("Title");
+                dvdInfo[2] = rs.getString("Year");
+                dvdInfo[3] = rs.getString("DirectorName");
+                dvdInfo[4] = rs.getString("PublisherName");
+                dvdInfo[5] = rs.getString("NumOfDVD");
+
+                return dvdInfo;
+            }
+        }
+        return null;
+    }
 }

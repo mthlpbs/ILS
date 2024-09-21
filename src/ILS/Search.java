@@ -13,7 +13,6 @@ import javax.swing.JOptionPane;
  */
 public class Search {
     public static String[] algorithmOfHomeBox(String searchKey) {
-        System.out.println("sdsds"+searchKey);
         try {
             if (searchKey == null) {
                 JOptionPane.showMessageDialog(null, "Search key cannot be null", "Error", JOptionPane.ERROR_MESSAGE);

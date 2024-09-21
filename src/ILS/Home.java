@@ -13,8 +13,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 /**
  *
  * @author Mithila Prabashwara
@@ -169,8 +167,41 @@ public class Home extends javax.swing.JFrame {
         jLabel44 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
         searchItem = new javax.swing.JFrame();
+        searchItemBG = new javax.swing.JPanel();
+        qType = new javax.swing.JLabel();
+        jLabel60 = new javax.swing.JLabel();
+        qAvailability = new javax.swing.JPanel();
+        qName = new javax.swing.JLabel();
+        qAuthor = new javax.swing.JLabel();
+        qPub = new javax.swing.JLabel();
+        qYear = new javax.swing.JLabel();
+        qISBN = new javax.swing.JLabel();
         searchMember = new javax.swing.JFrame();
+        searchMemberBG = new javax.swing.JPanel();
+        mName = new javax.swing.JLabel();
+        mID = new javax.swing.JLabel();
+        mAge = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        mEmail = new javax.swing.JLabel();
+        jLabel47 = new javax.swing.JLabel();
+        mAddr = new javax.swing.JLabel();
+        jLabel50 = new javax.swing.JLabel();
+        mNIC = new javax.swing.JLabel();
+        jLabel59 = new javax.swing.JLabel();
+        mTele = new javax.swing.JLabel();
         searchStaff = new javax.swing.JFrame();
+        searchStaffBG = new javax.swing.JPanel();
+        sName = new javax.swing.JLabel();
+        sID = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        sEmail = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel51 = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
+        sNIC = new javax.swing.JLabel();
+        sTele = new javax.swing.JLabel();
+        jLabel49 = new javax.swing.JLabel();
         bg = new javax.swing.JPanel();
         header = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
@@ -1442,37 +1473,397 @@ public class Home extends javax.swing.JFrame {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        searchItem.setTitle("Details");
+        searchItem.setLocation(new java.awt.Point(353, 285));
+        searchItem.setPreferredSize(new java.awt.Dimension(500, 166));
+        searchItem.setResizable(false);
+        searchItem.setSize(new java.awt.Dimension(500, 166));
+
+        searchItemBG.setBackground(new java.awt.Color(249, 249, 249));
+
+        qType.setForeground(new java.awt.Color(175, 175, 175));
+        qType.setText("Book");
+
+        jLabel60.setForeground(new java.awt.Color(175, 175, 175));
+        jLabel60.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jLabel60.setText("Availability");
+
+        qAvailability.setBackground(new java.awt.Color(204, 255, 204));
+
+        javax.swing.GroupLayout qAvailabilityLayout = new javax.swing.GroupLayout(qAvailability);
+        qAvailability.setLayout(qAvailabilityLayout);
+        qAvailabilityLayout.setHorizontalGroup(
+            qAvailabilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 17, Short.MAX_VALUE)
+        );
+        qAvailabilityLayout.setVerticalGroup(
+            qAvailabilityLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 17, Short.MAX_VALUE)
+        );
+
+        qName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        qName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        qName.setText("Harry Pooter and The Half Blood Prince");
+
+        qAuthor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        qAuthor.setForeground(new java.awt.Color(102, 102, 102));
+        qAuthor.setText("J. K. Wroling");
+
+        qPub.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        qPub.setForeground(new java.awt.Color(102, 102, 102));
+        qPub.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        qPub.setText("Warner Bros.");
+
+        qYear.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        qYear.setForeground(new java.awt.Color(102, 102, 102));
+        qYear.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        qYear.setText("2006");
+
+        qISBN.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        qISBN.setText("64367430645");
+
+        javax.swing.GroupLayout searchItemBGLayout = new javax.swing.GroupLayout(searchItemBG);
+        searchItemBG.setLayout(searchItemBGLayout);
+        searchItemBGLayout.setHorizontalGroup(
+            searchItemBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(qName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(searchItemBGLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(searchItemBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(qAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(qType))
+                .addGap(37, 37, 37)
+                .addGroup(searchItemBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(qISBN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(qPub, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE))
+                .addGroup(searchItemBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchItemBGLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(jLabel60, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(qAvailability, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(searchItemBGLayout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(qYear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(11, 11, 11))
+        );
+        searchItemBGLayout.setVerticalGroup(
+            searchItemBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(searchItemBGLayout.createSequentialGroup()
+                .addComponent(qName, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(searchItemBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(searchItemBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(qType)
+                        .addComponent(jLabel60, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(qISBN))
+                    .addComponent(qAvailability, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(searchItemBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(qAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(qPub, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(qYear, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(48, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout searchItemLayout = new javax.swing.GroupLayout(searchItem.getContentPane());
         searchItem.getContentPane().setLayout(searchItemLayout);
         searchItemLayout.setHorizontalGroup(
             searchItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(searchItemBG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         searchItemLayout.setVerticalGroup(
             searchItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(searchItemBG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        searchMember.setLocation(new java.awt.Point(353, 285));
+        searchMember.setPreferredSize(new java.awt.Dimension(390, 280));
+        searchMember.setResizable(false);
+        searchMember.setSize(new java.awt.Dimension(390, 280));
+
+        searchMemberBG.setBackground(new java.awt.Color(249, 249, 249));
+
+        mName.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        mName.setForeground(new java.awt.Color(102, 102, 102));
+        mName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mName.setText("A. P. M. P. Asuramanna");
+
+        mID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mID.setForeground(new java.awt.Color(186, 186, 186));
+        mID.setText("ME0001");
+
+        mAge.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        mAge.setForeground(new java.awt.Color(172, 172, 172));
+        mAge.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mAge.setText("23");
+
+        jLabel48.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        jLabel48.setForeground(new java.awt.Color(119, 119, 119));
+        jLabel48.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel48.setText("Age");
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(119, 119, 119));
+        jLabel17.setText("Email  ");
+        jLabel17.setMaximumSize(new java.awt.Dimension(24, 20));
+        jLabel17.setMinimumSize(new java.awt.Dimension(24, 20));
+        jLabel17.setPreferredSize(new java.awt.Dimension(24, 20));
+
+        mEmail.setForeground(new java.awt.Color(172, 172, 172));
+        mEmail.setText("user@hack.dino");
+
+        jLabel47.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel47.setForeground(new java.awt.Color(119, 119, 119));
+        jLabel47.setText("Tele.");
+        jLabel47.setMaximumSize(new java.awt.Dimension(24, 20));
+        jLabel47.setMinimumSize(new java.awt.Dimension(24, 20));
+        jLabel47.setPreferredSize(new java.awt.Dimension(24, 20));
+
+        mAddr.setForeground(new java.awt.Color(172, 172, 172));
+        mAddr.setText("No:195/2, 1st Lane, Mirigama");
+
+        jLabel50.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel50.setForeground(new java.awt.Color(119, 119, 119));
+        jLabel50.setText("NIC");
+        jLabel50.setMaximumSize(new java.awt.Dimension(24, 20));
+        jLabel50.setMinimumSize(new java.awt.Dimension(24, 20));
+        jLabel50.setPreferredSize(new java.awt.Dimension(24, 20));
+
+        mNIC.setForeground(new java.awt.Color(172, 172, 172));
+        mNIC.setText("200137291743");
+
+        jLabel59.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel59.setForeground(new java.awt.Color(119, 119, 119));
+        jLabel59.setText("Addr.");
+        jLabel59.setMaximumSize(new java.awt.Dimension(24, 20));
+        jLabel59.setMinimumSize(new java.awt.Dimension(24, 20));
+        jLabel59.setPreferredSize(new java.awt.Dimension(24, 20));
+
+        mTele.setForeground(new java.awt.Color(172, 172, 172));
+        mTele.setText("0774324332");
+
+        javax.swing.GroupLayout searchMemberBGLayout = new javax.swing.GroupLayout(searchMemberBG);
+        searchMemberBG.setLayout(searchMemberBGLayout);
+        searchMemberBGLayout.setHorizontalGroup(
+            searchMemberBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(searchMemberBGLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(searchMemberBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(mName, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(searchMemberBGLayout.createSequentialGroup()
+                        .addGroup(searchMemberBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchMemberBGLayout.createSequentialGroup()
+                                .addComponent(mID, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(199, 199, 199))
+                            .addGroup(searchMemberBGLayout.createSequentialGroup()
+                                .addGroup(searchMemberBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(searchMemberBGLayout.createSequentialGroup()
+                                        .addComponent(jLabel47, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(mTele, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(searchMemberBGLayout.createSequentialGroup()
+                                        .addComponent(jLabel50, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(mNIC, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(searchMemberBGLayout.createSequentialGroup()
+                                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(mEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(21, 21, 21)))
+                        .addGroup(searchMemberBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(mAge, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+                            .addComponent(jLabel48, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(searchMemberBGLayout.createSequentialGroup()
+                        .addComponent(jLabel59, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(mAddr, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        searchMemberBGLayout.setVerticalGroup(
+            searchMemberBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(searchMemberBGLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(mName, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(searchMemberBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(searchMemberBGLayout.createSequentialGroup()
+                        .addComponent(mID, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(searchMemberBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(mEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(searchMemberBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel47, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(mTele, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(searchMemberBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel50, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(mNIC, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(1, 1, 1))
+                    .addGroup(searchMemberBGLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel48)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(mAge, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGroup(searchMemberBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel59, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mAddr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout searchMemberLayout = new javax.swing.GroupLayout(searchMember.getContentPane());
         searchMember.getContentPane().setLayout(searchMemberLayout);
         searchMemberLayout.setHorizontalGroup(
             searchMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(searchMemberBG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         searchMemberLayout.setVerticalGroup(
             searchMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(searchMemberBG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        searchStaff.setLocation(new java.awt.Point(353, 285));
+        searchStaff.setPreferredSize(new java.awt.Dimension(403, 198));
+        searchStaff.setResizable(false);
+        searchStaff.setSize(new java.awt.Dimension(403, 198));
+
+        searchStaffBG.setBackground(new java.awt.Color(249, 249, 249));
+
+        sName.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        sName.setForeground(new java.awt.Color(102, 102, 102));
+        sName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        sName.setText("A. P. M. P. Asuramanna");
+
+        sID.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        sID.setForeground(new java.awt.Color(186, 186, 186));
+        sID.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        sID.setText("ME0001");
+
+        jLabel46.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel46.setForeground(new java.awt.Color(119, 119, 119));
+        jLabel46.setText("Email  ");
+        jLabel46.setMaximumSize(new java.awt.Dimension(24, 20));
+        jLabel46.setMinimumSize(new java.awt.Dimension(24, 20));
+        jLabel46.setPreferredSize(new java.awt.Dimension(24, 20));
+
+        sEmail.setForeground(new java.awt.Color(172, 172, 172));
+        sEmail.setText("user@hack.dino");
+
+        jPanel4.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel4.setPreferredSize(new java.awt.Dimension(0, 4));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 4, Short.MAX_VALUE)
+        );
+
+        jLabel51.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel51.setForeground(new java.awt.Color(119, 119, 119));
+        jLabel51.setText("Tele.");
+        jLabel51.setMaximumSize(new java.awt.Dimension(24, 20));
+        jLabel51.setMinimumSize(new java.awt.Dimension(24, 20));
+        jLabel51.setPreferredSize(new java.awt.Dimension(24, 20));
+
+        jLabel52.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel52.setForeground(new java.awt.Color(119, 119, 119));
+        jLabel52.setText("NIC");
+        jLabel52.setMaximumSize(new java.awt.Dimension(24, 20));
+        jLabel52.setMinimumSize(new java.awt.Dimension(24, 20));
+        jLabel52.setPreferredSize(new java.awt.Dimension(24, 20));
+
+        sNIC.setForeground(new java.awt.Color(172, 172, 172));
+        sNIC.setText("200137291743");
+
+        sTele.setForeground(new java.awt.Color(172, 172, 172));
+        sTele.setText("0774324332");
+
+        jLabel49.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel49.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel49.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel49.setText("SID");
+
+        javax.swing.GroupLayout searchStaffBGLayout = new javax.swing.GroupLayout(searchStaffBG);
+        searchStaffBG.setLayout(searchStaffBGLayout);
+        searchStaffBGLayout.setHorizontalGroup(
+            searchStaffBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(searchStaffBGLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(searchStaffBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(searchStaffBGLayout.createSequentialGroup()
+                        .addGroup(searchStaffBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(sName, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(searchStaffBGLayout.createSequentialGroup()
+                                .addComponent(jLabel52, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(sNIC, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchStaffBGLayout.createSequentialGroup()
+                        .addGroup(searchStaffBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                            .addGroup(searchStaffBGLayout.createSequentialGroup()
+                                .addGroup(searchStaffBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(searchStaffBGLayout.createSequentialGroup()
+                                        .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(sEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(searchStaffBGLayout.createSequentialGroup()
+                                        .addComponent(jLabel51, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(sTele, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(searchStaffBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(sID, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                                    .addComponent(jLabel49, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(17, 17, 17))))
+        );
+        searchStaffBGLayout.setVerticalGroup(
+            searchStaffBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(searchStaffBGLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(sName, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(searchStaffBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(searchStaffBGLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(searchStaffBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel46, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(searchStaffBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel51, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sTele, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(searchStaffBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel52, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sNIC, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(searchStaffBGLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel49)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sID, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout searchStaffLayout = new javax.swing.GroupLayout(searchStaff.getContentPane());
         searchStaff.getContentPane().setLayout(searchStaffLayout);
         searchStaffLayout.setHorizontalGroup(
             searchStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(searchStaffBG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         searchStaffLayout.setVerticalGroup(
             searchStaffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(searchStaffBG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -2336,12 +2727,6 @@ public class Home extends javax.swing.JFrame {
 
     private void SearchBoxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SearchBoxFocusLost
         searchedKey=SearchBox.getText();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            Log.write("An error occurred. \n" + " ".repeat(24) + "ERR Details-" + Home.class.getName() + " - " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "Something went wrong with your account. Try again or contact your administrator", "Message", JOptionPane.ERROR_MESSAGE);
-        }
         SearchBox.setText("  Search Item ID, Member ID  or Staff ID Here");
         SearchBox.setForeground(new Color(153,153,153));
     }//GEN-LAST:event_SearchBoxFocusLost
@@ -2356,13 +2741,51 @@ public class Home extends javax.swing.JFrame {
         try {
             if (res[1].matches("1")) {
                 if (Item.isBook(res[0])==true) {
-                    
+                    String[] infoDB = new String[6];
+                    infoDB = Item.getBookDetailsByItemId(res[0]);
+                    qType.setText(infoDB[0]);
+                    qName.setText(infoDB[1]);
+                    qAuthor.setText(infoDB[3]);
+                    qPub.setText(infoDB[4]);
+                    qYear.setText(infoDB[2]);
+                    qISBN.setText(infoDB[5]);
+                    if (Item.checkItem(res[0])) {qAvailability.setBackground(Color.green);}
+                    else {qAvailability.setBackground(Color.red);}
+                } else {
+                    String[] infoDB = new String[7];
+                    infoDB = Item.getDVDDetailsByItemId(res[0]);
+                    qType.setText(infoDB[0]);
+                    qName.setText(infoDB[1]);
+                    qAuthor.setText(infoDB[3]);
+                    qPub.setText(infoDB[4]);
+                    qYear.setText(infoDB[2]);
+                    qISBN.setText(infoDB[5]);
+                    if (Item.checkItem(res[0])) {qAvailability.setBackground(Color.green);}
+                    else {qAvailability.setBackground(Color.red);}
                 }
                 searchItem.setVisible(true);
             } else if (res[2].matches("1")) {
+                    String[] infoDB = new String[7];
+                    infoDB = Member.getMemberInfo(res[0]);
+                    mName.setText(infoDB[1]);
+                    mID.setText(infoDB[0]);
+                    mAge.setText(infoDB[5]);
+                    mEmail.setText(infoDB[3]);
+                    mAddr.setText(infoDB[6]);
+                    mNIC.setText(infoDB[4]);
+                    mTele.setText(infoDB[2]);
                 searchMember.setVisible(true);
             } else if (res[3].matches("1")) {
+                    String[] infoDB = new String[5];
+                    infoDB = Staff.getStaffInfo(res[0]);
+                    sName.setText(infoDB[1]);
+                    sID.setText(infoDB[0]);
+                    sEmail.setText(infoDB[3]);
+                    sNIC.setText(infoDB[4]);
+                    sTele.setText(infoDB[2]);
                 searchStaff.setVisible(true);
+            } else {
+            JOptionPane.showMessageDialog(null, "Invalid Search Request");
             }
         } catch (SQLException e) {
             Log.write("An error occurred. \n" + " ".repeat(24) + "ERR Details-" + Home.class.getName() + " - " + e.getMessage());
@@ -2497,6 +2920,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -2528,13 +2952,23 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -2543,18 +2977,40 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JFrame logoutWindow;
     private javax.swing.JPanel logoutWindowBackground;
     private javax.swing.JPanel mAV;
+    private javax.swing.JLabel mAddr;
+    private javax.swing.JLabel mAge;
+    private javax.swing.JLabel mEmail;
+    private javax.swing.JLabel mID;
+    private javax.swing.JLabel mNIC;
+    private javax.swing.JLabel mName;
+    private javax.swing.JLabel mTele;
     private javax.swing.JButton memRegButton;
     private javax.swing.JLabel nameBorrow;
     private javax.swing.JButton noButton;
     private javax.swing.JLabel pubBorrow;
+    private javax.swing.JLabel qAuthor;
+    private javax.swing.JPanel qAvailability;
+    private javax.swing.JLabel qISBN;
+    private javax.swing.JLabel qName;
+    private javax.swing.JLabel qPub;
+    private javax.swing.JLabel qType;
+    private javax.swing.JLabel qYear;
     private javax.swing.JTextField rBorrowID;
     private javax.swing.JButton rReturnButton;
     private javax.swing.JLabel recordIcon;
     private javax.swing.JPanel returnBg;
     private javax.swing.JFrame returnItemWindow;
+    private javax.swing.JLabel sEmail;
+    private javax.swing.JLabel sID;
+    private javax.swing.JLabel sNIC;
+    private javax.swing.JLabel sName;
+    private javax.swing.JLabel sTele;
     private javax.swing.JFrame searchItem;
+    private javax.swing.JPanel searchItemBG;
     private javax.swing.JFrame searchMember;
+    private javax.swing.JPanel searchMemberBG;
     private javax.swing.JFrame searchStaff;
+    private javax.swing.JPanel searchStaffBG;
     private javax.swing.JButton staffRegButton;
     private javax.swing.JLabel typeBorrow;
     private javax.swing.JLabel viewRecordTxt;

@@ -69,4 +69,26 @@ public class Staff {
         }
         return false;
     }
+    
+        public static String[] getStaffInfo(String staffId) {
+        String[] staffInfo = new String[5];
+        try {
+            Connection connection = db.connect();
+            Statement statement = connection.createStatement();
+            String query = "SELECT SID, Name, Tel, Email, NIC FROM staff WHERE SID = '" + staffId + "'";
+            ResultSet resultSet = statement.executeQuery(query);
+
+            if (resultSet.next()) {
+                staffInfo[0] = resultSet.getString("SID");
+                staffInfo[1] = resultSet.getString("Name");
+                staffInfo[2] = resultSet.getString("Tel");
+                staffInfo[3] = resultSet.getString("Email");
+                staffInfo[4] = resultSet.getString("NIC");
+            }
+        } catch (SQLException e) {
+            Log.write("Error occurred while retrieving staff information.\n" + " ".repeat(24) + "ERR MEG -" + e.getMessage());
+            return new String[]{"Failed to retrieve staff information. Try again or contact your administrator."};
+        }
+        return staffInfo;
+    }
 }
