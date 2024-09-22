@@ -24,7 +24,7 @@ ILS is an Integrated Library System designed to manage library operations such a
 ## Installation
 1. **Clone the repository**:
     ```sh
-    git clone https://github.com/mthlpbs/Library-Management-System.git
+    https://github.com/mthlpbs/Library-Management-System.git
     cd ILS
     ```
 
